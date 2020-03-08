@@ -1,0 +1,25 @@
+{
+  "name": "club_managment_system",
+  "version": "1.0.0",
+  "description": "Final year project",
+  "main": "app.js",
+  "dependencies": {
+    "Express": "^3.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-mongodb-session": "^2.3.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongodb": "^3.5.2",
+    "mongoose": "^5.8.9",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Rohit Rawat",
+  "license": "ISC"
+}
