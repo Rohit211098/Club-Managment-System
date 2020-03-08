@@ -25,18 +25,8 @@ app.use(bodyparser.urlencoded());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(session({secret:'my secrate' , resave : false ,saveUninitialized : false , store : store}));
 
-app.use(gest.index);
-app.use(gest.siginUp);
-app.use(gest.about);
-app.use(gest.profile);
-app.use(gest.clubsSingle);
-app.use(gest.clubs);
-app.use(gest.contact);
-app.use(gest.eventSingle);
-app.use(gest.events);
-app.use(gest.noticeSingle);
-app.use(gest.notice);
-app.use(gest.login);
+app.use(gest);
+
 
 
 
