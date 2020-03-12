@@ -7,8 +7,12 @@ router.post('/login',auth.getlogindetails);
 
  router.post('/signup',auth.getSignUpDetails);
 router.get('/profile',isAuth,(req,res,next) => {
+  console.log(req.session.user.profile.firstName);
     res.render('profile',{
-        isAuthenticated: req.session.isLoggedIn
+        isAuthenticated: req.session.isLoggedIn,
+        nameFirst:req.session.user.profile.firstName,
+        nameLast : req.session.user.profile.lastName
+        
       });
 });
 
