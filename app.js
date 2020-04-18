@@ -13,6 +13,7 @@ app.set('views','views');
 const MONGODB_CONNECT = 'mongodb://localhost:27017/test';
 
 const gest = require('./routs/gest');
+const admin = require('./routs/admin');
 const store = new mongodb_Session({
 url:MONGODB_CONNECT,
 collection : 'sessions'
@@ -25,7 +26,9 @@ app.use(bodyparser.urlencoded());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(session({secret:'my secrate' , resave : false ,saveUninitialized : false , store : store}));
 
+app.use(admin);
 app.use(gest);
+
 
 
 

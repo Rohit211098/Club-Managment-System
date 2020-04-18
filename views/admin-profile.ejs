@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+  <%- include('includes/head.ejs') %>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  
+
+<body>
+
+    <%- include('includes/admin-header.ejs') %>
+     <%- include('includes/signupModal.ejs') %>
+    <%- include('includes/loginModal.ejs') %>
+
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+         
+          <ul class="list-inline custom-breadcrumb">
+            <!-- <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Notice</a></li> -->
+            <li ><img class="mx-auto d-block  img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+            </li>
+            <li class="text-center text-white ul-size h3 font-secondary @@nasted center-block"><%= nameFirst %>  <%= nameLast %> </li>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul class="list-inline custom-breadcrumb list-group ul-size">
+                        <li class="text-center text-white  ul-size h3 font-secondary @@nasted center-block">Roll Number</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="list-inline custom-breadcrumb list-group ul-size">
+                        <li class="text-center text-white  ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul class="list-inline custom-breadcrumb list-group ul-size">
+                        <li class="text-center text-white ul-size  h3 font-secondary @@nasted center-block">College</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="list-inline custom-breadcrumb list-group ul-size">
+                        <li class="text-center text-white ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul class="list-inline custom-breadcrumb list-group ul-size">
+                        <li class="text-center text-white  ul-size h3 font-secondary @@nasted center-block">Branch</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="list-inline custom-breadcrumb list-group ul-size">
+                        <li class="text-center text-white ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        <!-- <div class="col-sm-4">
+            <ul class="list-inline list-group ul-size custom-breadcrumb">
+              <li class="list-group-item ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+              <li class="list-group-item ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+              <li class="list-group-item ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+            </ul>
+        </div> -->
+      </div>
+    </div>
+  </section>
+  <!-- /page title --> 
+
+
+  
+  <div class="container">
+      <div class="view-account">
+          <section class="module">
+              <div class="module-inner">
+                  <div class="content-panel">
+                      <form class="form-horizontal" method="POST" action="/profile">
+                          <fieldset class="fieldset">
+                              <div class="form-group">
+                                  <label class="col-md-2 col-sm-3 col-xs-12 control-label">User Name</label>
+                                  <div class="col-md-10 col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="userName" placeholder="User Name" >
+                                  </div>
+                              </div>
+          
+                              <div class="form-group">
+                                  <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name</label>
+                                  <div class="col-md-10 col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="firstName" placeholder="First Name" >
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
+                                  <div class="col-md-10 col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="lastName" placeholder="Last Name" >
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Roll Number</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="number" class="form-control" name="rollNumber" placeholder="Roll Number" >
+                                </div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="fieldset">
+                              <h3 class="fieldset-title">Contact Info</h3>
+                              <div class="form-group">
+                                  <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
+                                  <div class="col-md-10 col-sm-9 col-xs-12">
+                                      <input type="email" class="form-control" value="Rebecca@website.com">
+                                      <p class="help-block">This is the email </p>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-md-2  col-sm-3 col-xs-12 control-label">Twitter</label>
+                                  <div class="col-md-10 col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" value="SpeedyBecky">
+                                      <p class="help-block">Your twitter username</p>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-md-2  col-sm-3 col-xs-12 control-label">Linkedin</label>
+                                  <div class="col-md-10 col-sm-9 col-xs-12">
+                                      <input type="url" class="form-control" value="https://www.linkedin.com/in/lorem">
+                                      <p class="help-block">eg. https://www.linkedin.com/in/yourname</p>
+                                  </div>
+                              </div>
+                          </fieldset>
+                          <hr>
+                          <div class="form-group">
+                              <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                  <input class="btn btn-primary" type="submit" value="Update Profile">
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </section>
+      </div>
+  </div>
+
+
+  <!-- footer -->
+<footer>
+    <!-- newsletter -->
+    <div class="newsletter">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+            <h3 class="text-white">Subscribe Now</h3>
+            <form action="#">
+              <div class="input-wrapper">
+                <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
+                <button type="submit" value="send" class="btn btn-primary">Join</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer content -->
+    <div class="footer bg-footer section border-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
+            <!-- logo -->
+            <!-- <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="images/logo.png" alt="logo"></a>
+            <ul class="list-unstyled">
+              <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
+              <li class="mb-2">+1 (2) 345 6789</li>
+              <li class="mb-2">+1 (2) 345 6789</li>
+              <li class="mb-2">contact@yourdomain.com</li>
+            </ul> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- /footer -->
+
+
+
+    <%- include('includes/scripts.ejs') %>
+
+
+</body>
+</html>    
+                                                      

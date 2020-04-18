@@ -1618,6 +1618,14 @@ body{
   }
   }
 
+
+  .form-club{
+    display: inline-block;
+    max-width: 500px;
+    margin: auto;
+    align-items: center;
+  }
+
   .img-circle{border-radius:50%;
     width: 50%;
     padding: 5px;
@@ -1650,4 +1658,6 @@ body{
   .navbar {
     min-height: 100px;
   }
+
+  
   

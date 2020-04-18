@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+  <%- include('includes/head.ejs') %>
+
+  <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <!-- Font special for pages-->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Vendor CSS-->
+  <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+  <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+   <!-- Main CSS-->
+   <link href="css/main.css" rel="stylesheet" media="all">
+  
+
+<body>
+
+    <%- include('includes/admin-header.ejs') %>
+    <%- include('includes/signupModal.ejs') %>
+    <%- include('includes/loginModal.ejs') %>
+
+
+<!--page title-->
+<section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+         
+         
+                </div>
+            </div>
+            
+        </div>
+        <!-- <div class="col-sm-4">
+            <ul class="list-inline list-group ul-size custom-breadcrumb">
+              <li class="list-group-item ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+              <li class="list-group-item ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+              <li class="list-group-item ul-size h3 font-secondary @@nasted center-block">1624010053</li>
+            </ul>
+        </div> -->
+      </div>
+    </div>
+  </section>
+  <!-- /page title --> 
+
+
+  <div class="page-wrapper  p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Create Club</h2>
+                <form method="POST">
+                    <div class="row row-space">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <label class="label">Club name</label>
+                                <input class="input--style-4" type="text" name="first_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-space">
+                      <div class="col-12">
+                          <div class="input-group">
+                              <label class="label">Club Head Email</label>
+                              <input class="input--style-4" type="text" name="first_name">
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="row row-space">
+                      <div class="col-12">
+                          <div class="input-group">
+                              <label class="label">Club Discription</label>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12">
+                          <div class="input-group">
+                              <textarea class="input--style-4" type="text" cols="100" name="first_name"></textarea>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12">
+                          <div class="input-group">
+                            <label class="label">Club Image</label>
+                            <div class="row">
+                              <div class="col-6">
+                                    <input class="input--style-img-4" type='file' onchange="readURL(this);" />
+                              </div>
+                              <div class="col-6">
+                    
+                                  <img class="input--style-img-4" id="blah" src="#" alt="your image" />
+      
+                            </div>
+                            </div>
+
+                            
+                          </div>
+                      </div>
+                    </div>
+
+
+                   
+
+                  
+                    
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- footer -->
+<footer>
+    <!-- newsletter -->
+    <div class="newsletter">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+            <h3 class="text-white">Subscribe Now</h3>
+            <form action="#">
+              <div class="input-wrapper">
+                <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
+                <button type="submit" value="send" class="btn btn-primary">Join</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer content -->
+    <div class="footer bg-footer section border-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
+            <!-- logo -->
+            <!-- <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="images/logo.png" alt="logo"></a>
+            <ul class="list-unstyled">
+              <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
+              <li class="mb-2">+1 (2) 345 6789</li>
+              <li class="mb-2">+1 (2) 345 6789</li>
+              <li class="mb-2">contact@yourdomain.com</li>
+            </ul> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- /footer -->
+
+     <!-- Jquery JS-->
+     <script src="vendor/jquery/jquery.min.js"></script>
+     <!-- Vendor JS-->
+     <script src="vendor/select2/select2.min.js"></script>
+     <script src="vendor/datepicker/moment.min.js"></script>
+     <script src="vendor/datepicker/daterangepicker.js"></script>
+
+ <!-- Main JS-->
+ <script src="js/global.js"></script>
+
+    <%- include('includes/scripts.ejs') %>
+
+
+</body>
+</html>    
+                                                      

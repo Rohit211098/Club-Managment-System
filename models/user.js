@@ -3,6 +3,7 @@ const mongoos = require('mongoose');
 const Schema = mongoos.Schema;
 
 const userSchema = new Schema({
+
     rollNumber: {
         type: Number,
         required:true,
@@ -17,6 +18,17 @@ const userSchema = new Schema({
         unique: true,
         dropDups: true
 
+    },
+
+    isAdmin:{
+        type:Boolean,
+        required: true
+
+    },
+
+    userType: {
+        type: Number,
+        required: true
     },
 
     profile:{

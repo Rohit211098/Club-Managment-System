@@ -11,6 +11,8 @@ exports.getSignUpDetails = (req,res,next) =>{
         const user = new User({
             rollNumber:rollNumber,
             email:email,
+            userType:0,
+            isAdmin:false,
             profile : {
                 firstName:firstName,
                 lastName:lastName
