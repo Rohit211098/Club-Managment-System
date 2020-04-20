@@ -45,6 +45,7 @@ var fileFilter = (req,file,cb) => {
 app.use(bodyparser.urlencoded());
 app.use(multer({storage : fileStorage ,fileFilter : fileFilter}).single('image'));
 app.use(express.static(path.join(__dirname,'public')));
+app.use('/images',express.static(path.join(__dirname,'images')));
 app.use(session({secret:'my secrate' , resave : false ,saveUninitialized : false , store : store}));
 
 app.use(admin);

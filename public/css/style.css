@@ -1659,5 +1659,21 @@ body{
     min-height: 100px;
   }
 
+  .club-img{
+    max-height: 15rem;
+    min-height: 15rem;
+    max-width: 100%;
+    
+  }
+
+  .form-button{
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-button .button {
+    margin-left: 10px;
+  }
+
   
   

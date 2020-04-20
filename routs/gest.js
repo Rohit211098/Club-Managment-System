@@ -1,5 +1,6 @@
 const express = require('express');
 const auth = require('../controller/authController');
+const GustController = require('../controller/gestController');
 const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
@@ -41,15 +42,8 @@ router.get('/create-club',isAuth,(req,res,next) => {
       });
 });
 
-router.get('/clubs',(req,res,next) => {
-    res.render('clubs',{
-     
-        isAuthenticated: req.session.isLoggedIn,
-        if (isAuthenticated) {
-          isAdmin:  req.session.user.isAdmin
-        }
-      });
-})
+router.get('/clubs',GustController.getClubs);
+
 router.get('/about',(req,res,next) => {
     res.render('about',{
       

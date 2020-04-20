@@ -11,6 +11,10 @@ const clubSchema = new schema({
 
     },
 
+    clubDate : {
+        type : String
+    },
+
     clubHead : {
 
         name : {

@@ -32,113 +32,70 @@
     <!-- course list -->
 <div class="row justify-content-center">
   <!-- course item -->
+  <% for(let club of clubs) { %>
+
+<!-- Modal -->
+<div class="modal fade" id="<%= club._id %>" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content rounded-0 border-0 p-4">
+          <div class="modal-header border-0">
+              <h3>Edit Club</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="login">
+                  <form action="/editClub" method="POST" enctype="multipart/form-data" class="row">
+                    <input type="hidden" name="id" value="<%= club._id %>" />
+
+                      <div class="col-12">
+                          <input type="text" class="form-control mb-3" id="signupRollNo" name="club_name" value="<%= club.clubName %>">
+                      </div>
+                      <div class="col-12">
+                          <input type="text" class="form-control mb-3" id="signupFirstName" name="head_email" value="<%= club.clubHead.email %>">
+                      </div>
+                      <div class="col-12">
+                          <input type="text" class="form-control mb-3" id="signupLastName" name="club_description" value="<%= club.clubDescription %>">
+                      </div>
+                      <div class="col-12">
+                        <input class="mb-3" type='file' name="image" id="image" onchange="readURL(this);"  value="Select Image"/>
+                      </div>
+                      <div class="col-12">
+                          <button type="submit" class="btn btn-primary">Update</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+    
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-1.jpg" alt="course thumb">
+      <img class="card-img-top rounded-0 club-img" src="\<%= club.clubImagePath %>" alt="course thumb">
       <div class="card-body">
         <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i><%= club.clubDate %></li>
         </ul>
         <a href="course-single.html">
-          <h4 class="card-title">Photography</h4>
+          <h4 class="card-title"><%= club.clubName %></h4>
         </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+        <p class="card-text mb-4"><%= club.clubDescription %></p>
+
+        <a class="btn btn-primary btn-sm" href="#<%= club._id %>" data-toggle="modal" data-target="#<%= club._id %>">Edit</a>
+        <!-- <form class="form-button" action="" method="post" >
+          <input type="submit" class="btn btn-primary btn-sm" value="Apply now">
+          <input type="submit" class="btn btn-primary btn-sm button" value="Delete">
+        </form> -->
+        
       </div>
     </div>
   </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-2.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Programming</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-3.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Lifestyle Archives</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-4.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Complete Freelancing</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-5.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Branding Design</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-6.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Art Design</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
+  <% } %>
+  
 </div>
 
 <!-- /course list -->

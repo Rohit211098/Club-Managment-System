@@ -1,5 +1,5 @@
 const express = require('express');
-const postCreateClub = require('../controller/adminController')
+const adminController = require('../controller/adminController')
 
 const router = express.Router();
 
@@ -15,7 +15,14 @@ router.get("/create-club",(req,res,next) => {
 
 
 
-router.post("/create-club",postCreateClub.postCreateClub);
+router.post("/create-club",adminController.postCreateClub);
+
+router.post("/editClub",adminController.postEditClub);
+
+
+
+
+
 
 
 module.exports = router;
