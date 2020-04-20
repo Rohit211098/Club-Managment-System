@@ -1,4 +1,5 @@
 const express = require('express');
+const postCreateClub = require('../controller/adminController')
 
 const router = express.Router();
 
@@ -11,6 +12,10 @@ router.get("/create-club",(req,res,next) => {
         isAuthenticated: req.session.isLoggedIn
     });
 })
+
+
+
+router.post("/create-club",postCreateClub.postCreateClub);
 
 
 module.exports = router;

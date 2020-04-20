@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyparser = require('body-parser');
+const multer = require('multer')
 const session = require('express-session');
 const mongodb_Session = require('connect-mongodb-session')(session);
 
@@ -19,10 +20,30 @@ url:MONGODB_CONNECT,
 collection : 'sessions'
 });
 
+var fileStorage = multer.diskStorage({
+    destination : (req,file,cb) => {
+        cb(null,'\images');
+    },
+    filename : (req,file,cb) => {
+        var date = "hi" ;
+        cb(null,file.originalname);
+    }
+});
+
+var fileFilter = (req,file,cb) => {
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'){
+        cb(null,true);
+    }else{
+        cb(null,false);
+    }
+}
+
+
 
 
 
 app.use(bodyparser.urlencoded());
+app.use(multer({storage : fileStorage ,fileFilter : fileFilter}).single('image'));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(session({secret:'my secrate' , resave : false ,saveUninitialized : false , store : store}));
 
