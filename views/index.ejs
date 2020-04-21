@@ -8,9 +8,10 @@
   <% if(isAdmin) {  %>
     <%- include('includes/admin-header.ejs') %>
   <% } else { %>
-    <%- include('includes/signupModal.ejs') %>
+    <%- include('includes/header.ejs') %>
   <% }  %>
-<%- include('includes/loginModal.ejs') %>
+  <%- include('includes/signupModal.ejs') %>
+  <%- include('includes/loginModal.ejs') %>
 
 
 

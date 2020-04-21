@@ -5,7 +5,11 @@
 <body>
   
 
-<%- include('includes/header.ejs') %>
+  <% if(isAdmin) {  %>
+    <%- include('includes/admin-header.ejs') %>
+  <% } else { %>
+    <%- include('includes/header.ejs') %>
+  <% }  %>
 <%- include('includes/signupModal.ejs') %>
 <%- include('includes/loginModal.ejs') %>
 
