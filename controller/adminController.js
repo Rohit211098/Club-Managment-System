@@ -1,4 +1,5 @@
 const Club = require('../models/clubs')
+const Head = require('../models/clubHead')
 const GustController = require('../controller/gestController');
 const fs = require('fs');
 const path = require('path');
@@ -7,34 +8,51 @@ const MONGODB_CONNECT = 'mongodb://localhost:27017/test';
 
 exports.postCreateClub = (req,res,next) => {
     var clubName = req.body.club_name;
+    var clubHeadFirstName = req.body.club_head_first;
+    var clubHeadLastName = req.body.club_head_last;
     var clubHeadEmail = req.body.head_email;
     var clubDescription = req.body.club_description;
     var image = req.file.path;
-   
-    const club = new Club({
-        clubName : clubName,
-        clubDate : new Date().toLocaleDateString(),
-        clubHead : {
-            email : clubHeadEmail
-        },
-        clubImagePath : image,
-        clubDescription : clubDescription,
 
+    const head = new Head({
+        name : {
+            first : clubHeadFirstName,
+            last : clubHeadFirstName,
+        },
+
+        email : clubHeadEmail
     })
 
-    console.log(image)
+    head.save().then( message => {
 
-    club.save().then( message => {
-        console.log(message);
+        const club = new Club({
+            clubName : clubName,
+            clubDate : new Date().toLocaleDateString(),
+            clubHead : message._id,
+            clubImagePath : image,
+            clubDescription : clubDescription,
+    
+        })
+        club.save().then( message => {
+        
+            res.redirect('/');
+        }).catch( err =>{
+            console.log(err);
+            res.redirect('/create-club');
+        });
+        console.log(message._id);
         res.redirect('/');
     }).catch( err =>{
         console.log(err);
         res.redirect('/create-club');
     });
 
-    // res.render('admin-create-club',{
-    //     isAuthenticated: req.session.isLoggedIn
-    // });
+   
+   
+
+    console.log(image)
+
+   
     
 }
 
@@ -80,3 +98,11 @@ exports.postEditClub = (req,res,next) => {
     
 
 }
+
+exports.postDeleteProduct = (req,res,next) => {
+    var id = req.body.id;
+
+    Club.findByIdAndRemove({_id : id }, (err , deletedItem) => {
+        res.redirect('/clubs')
+    });
+};

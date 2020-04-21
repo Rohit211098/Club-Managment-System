@@ -19,6 +19,8 @@ router.post("/create-club",adminController.postCreateClub);
 
 router.post("/editClub",adminController.postEditClub);
 
+router.post('/delete',adminController.postDeleteProduct);
+
 
 
 

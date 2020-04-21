@@ -16,22 +16,8 @@ const clubSchema = new schema({
     },
 
     clubHead : {
-
-        name : {
-            type : String,
-        
-        },
-
-        email : {
-            type : String,
-            require : true
-        },
-
-        phone : {
-            type : Number,
-        }
-
-
+        type: String,
+        require : true
     },
 
     clubImagePath : {

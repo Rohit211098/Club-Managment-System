@@ -108,15 +108,7 @@ router.get('/notice',(req,res,next) => {
       });
 })
 
- router.get('/index',(req,res,next) => {
-    res.render('index',{
-      
-        isAuthenticated: req.session.isLoggedIn,
-        if (isAuthenticated) {
-          isAdmin:  req.session.user.isAdmin
-        }
-      });
-})
+ router.get('/index',GustController.getIndex)
 
 router.post('/logout',(req,res,next) => {
     req.session.destroy(err => {
@@ -127,20 +119,6 @@ router.post('/logout',(req,res,next) => {
 })
 
 
- router.get('/',(req,res,next) => {
-  if (req.session.isLoggedIn) {
-      if(req.session.user.isAdmin){
-        res.render('admin-index',{
-          isAuthenticated: req.session.isLoggedIn,
-        });
-      }else{
-        res.render('index',{
-          isAuthenticated: req.session.isLoggedIn,
-        
-        });
-      }
-  }
-    
-})
+ router.get('/',GustController.getIndex)
 
 module.exports = router;
