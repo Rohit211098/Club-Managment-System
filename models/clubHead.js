@@ -15,6 +15,11 @@ const clubHead = new schema({
             require : true
         }
     },
+    
+    userType: {
+        type: Number,
+        required: true
+    },
 
     email : {
         type : String,
@@ -104,6 +109,12 @@ const clubHead = new schema({
                 required:false}
         }] 
     },
+
+
+    password: {
+        type: String,
+        required:true,
+    }
 
     
 

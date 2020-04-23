@@ -15,6 +15,7 @@ const MONGODB_CONNECT = 'mongodb://localhost:27017/test';
 
 const gest = require('./routs/gest');
 const admin = require('./routs/admin');
+const head = require('./routs/clubHead')
 const store = new mongodb_Session({
 url:MONGODB_CONNECT,
 collection : 'sessions'
@@ -50,6 +51,7 @@ app.use(session({secret:'my secrate' , resave : false ,saveUninitialized : false
 
 app.use(admin);
 app.use(gest);
+app.use(head);
 
 
 
@@ -60,7 +62,7 @@ const server = http.createServer(app);
 
 
 mongoose.connect(MONGODB_CONNECT).then(result => {
-    app.listen(3000);c                  
+    app.listen(3000);                
 }).catch( err => {
     console.log(err);
 });

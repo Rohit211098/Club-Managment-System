@@ -67,7 +67,7 @@ exports.getlogindetails = (req,res,next) =>{
             console.log("bcrypt   err "+err);
         });
     }).catch(err => {
-        console.log("user err"+err);
+        console.log("user err++++"+err);
     });
   
 }

@@ -3,6 +3,7 @@ const Head = require('../models/clubHead')
 const GustController = require('../controller/gestController');
 const fs = require('fs');
 const path = require('path');
+const bcryppt = require('bcryptjs');
 const mongoose = require('mongoose');
 const MONGODB_CONNECT = 'mongodb://localhost:27017/test';
 
@@ -14,41 +15,46 @@ exports.postCreateClub = (req,res,next) => {
     var clubDescription = req.body.club_description;
     var image = req.file.path;
 
-    const head = new Head({
-        name : {
-            first : clubHeadFirstName,
-            last : clubHeadFirstName,
-        },
+  
 
-        email : clubHeadEmail
-    })
-
-    head.save().then( message => {
-
-        const club = new Club({
-            clubName : clubName,
-            clubDate : new Date().toLocaleDateString(),
-            clubHead : message._id,
-            clubImagePath : image,
-            clubDescription : clubDescription,
+    var passwordEncrypt = bcryppt.hash("123456",12).then( message => {
+        const head = new Head({
+            name : {
+                first : clubHeadFirstName,
+                last : clubHeadFirstName,
+            },
     
+            password : message,
+            userType: 10,
+            email : clubHeadEmail
         })
-        club.save().then( message => {
+        head.save().then( message => {
+
+            const club = new Club({
+                clubName : clubName,
+                clubDate : new Date().toLocaleDateString(),
+                clubHead : message._id,
+                clubImagePath : image,
+                clubDescription : clubDescription,
         
+            })
+            club.save().then( message => {
+            
+                res.redirect('/');
+            }).catch( err =>{
+                console.log(err);
+                res.redirect('/create-club');
+            });
+            console.log(message._id);
             res.redirect('/');
         }).catch( err =>{
             console.log(err);
             res.redirect('/create-club');
         });
-        console.log(message._id);
-        res.redirect('/');
-    }).catch( err =>{
+    
+    }).catch(err =>{
         console.log(err);
-        res.redirect('/create-club');
     });
-
-   
-   
 
     console.log(image)
 
@@ -103,6 +109,11 @@ exports.postDeleteProduct = (req,res,next) => {
     var id = req.body.id;
 
     Club.findByIdAndRemove({_id : id }, (err , deletedItem) => {
-        res.redirect('/clubs')
+        console.log(deletedItem._id)
+
+        Head.findByIdAndRemove( {_id : deletedItem.clubHead} , (err , destory) => {
+            res.redirect('/clubs')
+        })
+       
     });
 };
