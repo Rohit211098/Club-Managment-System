@@ -7,10 +7,12 @@ exports.getSignUpDetails = (req,res,next) =>{
     const lastName = req.body.signupLastName;
     const email = req.body.signupEmail;
     const password = req.body.signupPassword;
+    const userName = req.body.signupUserName;
     var passwordEncrypt = bcryppt.hash(password,12).then( message => {
         const user = new User({
             rollNumber:rollNumber,
             email:email,
+            userName : userName,
             userType:0,
             isAdmin:false,
             profile : {

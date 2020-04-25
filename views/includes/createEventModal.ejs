@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/login" method="POST" class="row">
+                <form action="/create-event" method="POST" enctype="multipart/form-data" class="row">
                     <div class="col-12">
                         <input type="text" class="form-control mb-3" id="eventName" name="eventName" placeholder="Event Heading">
                     </div>
@@ -47,9 +47,14 @@
                     </div>     
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-4">
-                                <div class="file-upload-wrapper form-control mb-3" data-text="Select your file!">
-                                    <input name="file-upload-field" type="file" class="" value="">
+                            <div class="col-6">
+                                <div class="file-upload-wrapper form-control mb-3" data-text="Select Small Banner!">
+                                    <input name="smallBanner" type="file" class="file-upload-field" value="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="file-upload-wrapper form-control mb-3" data-text="Select big Banner!">
+                                    <input name="bigBanner" type="file" class="file-upload-field" value="">
                                 </div>
                             </div>
                         </div>
@@ -57,23 +62,19 @@
                     <div class="col-12">
                         <input type="text" class="form-control mb-3" id="eventLocation" name="eventLocation" placeholder="Location">
                     </div>
-                    <div class="col-12">
-                        <input type="text" class="form-control mb-3" id="eventLocation" name="eventLocation" placeholder="Event Location">
-                    </div>
-
+   
                     <div class="col-12 table-responsive ">
                         <table class="table table-border-hidden" id="dynamic_field">  
                             <tr class="table-border-hidden">  
-                                 <td><input type="text" name="name[]" placeholder="Cordinator UserId" class="form-control name_list" /></td>  
+                                 <td><input type="text" name="name[1]" placeholder="Cordinator UserId" class="form-control name_list" /></td>  
                                  <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
                             </tr>  
                        </table>  
                     </div>
 
                     <div class="col-12">
-                      
-                            
-                            <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />  
+
+                            <input type="submit" name="submit" id="submit" class="btn btn-info" value="Submit" />  
                    
                     </div>
                 </form>

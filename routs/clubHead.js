@@ -5,6 +5,8 @@ const HeadController = require('../controller/clubHeadController')
 
 router.post('/loginHead',HeadController.getHeadlogindetails);
 
+router.post('/create-event',HeadController.postCreateEvent);
+
 
 
 

@@ -3,23 +3,13 @@
 
   <%- include('includes/head.ejs') %>
 
-  <link href="css/date-picker.css" rel="stylesheet" id="bootstrap-css">
-  <link rel="stylesheet" href="css/clock-picker.css"  id="bootstrap-css"/>
+  
 
 
 <body>
   
 
-  <% if(isAdmin) {  %>
-    <%- include('includes/admin-header.ejs') %>
-  <% } else if(userType == 10) { %>
-    <%- include('includes/createEventModal.ejs') %>
-    <%- include('includes/club-head-header.ejs') %>
-    <% } else { %>
-      <%- include('includes/header.ejs') %>  
-  <% }  %>
-  <%- include('includes/signupModal.ejs') %>
-  <%- include('includes/loginModal.ejs') %>
+  <%- include('includes/head-Includes.ejs') %>
 
 <!-- page title -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
@@ -42,102 +32,28 @@
 <section class="section">
   <div class="container">
     <div class="row">
+
+      <% for(let event of events ){   %>
       <!-- event -->
       <div class="col-lg-4 col-sm-6 mb-5">
         <div class="card border-0 rounded-0 hover-shadow">
           <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
-            <div class="card-date"><span>18</span><br>December</div>
+            <img class="card-img-top rounded-0" src="/<%= event.images.smallBanner %>" alt="event thumb">
+            <div class="card-date"><span><%= event.date.split(" ")[0] %></span><br><%= event.date.split(" ")[1] %></div>
           </div>
           <div class="card-body">
             <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
+            <p><i class="ti-location-pin text-primary mr-2"></i><%= event.location %></p>
             <a href="event-single.html">
-              <h4 class="card-title">Firefly training in trauma-informed yoga</h4>
+              <h4 class="card-title"><%= event.heading %></h4>
             </a>
           </div>
         </div>
       </div>
-      <!-- event -->
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card border-0 rounded-0 hover-shadow">
-          <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="images/events/event-2.jpg" alt="event thumb">
-            <div class="card-date"><span>21</span><br>December</div>
-          </div>
-          <div class="card-body">
-            <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-            <a href="event-single.html">
-              <h4 class="card-title">Research seminar in clinical science.</h4>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- event -->
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card border-0 rounded-0 hover-shadow">
-          <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="images/events/event-3.jpg" alt="event thumb">
-            <div class="card-date"><span>23</span><br>December</div>
-          </div>
-          <div class="card-body">
-            <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-            <a href="event-single.html">
-              <h4 class="card-title">Toward a public philosophy of justice</h4>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- event -->
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card border-0 rounded-0 hover-shadow">
-          <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
-            <div class="card-date"><span>18</span><br>December</div>
-          </div>
-          <div class="card-body">
-            <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-            <a href="event-single.html">
-              <h4 class="card-title">Lorem ipsum dolor amet, consectetur adipisicing.</h4>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- event -->
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card border-0 rounded-0 hover-shadow">
-          <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="images/events/event-2.jpg" alt="event thumb">
-            <div class="card-date"><span>21</span><br>December</div>
-          </div>
-          <div class="card-body">
-            <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-            <a href="event-single.html">
-              <h4 class="card-title">Inequality seminar returns spring term</h4>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- event -->
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card border-0 rounded-0 hover-shadow">
-          <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="images/events/event-3.jpg" alt="event thumb">
-            <div class="card-date"><span>23</span><br>December</div>
-          </div>
-          <div class="card-body">
-            <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-            <a href="event-single.html">
-              <h4 class="card-title">Social media and behavior economics conference</h4>
-            </a>
-          </div>
-        </div>
-      </div>
+
+      <% }  %>
+      
+     
     </div>
   </div>
 </section>

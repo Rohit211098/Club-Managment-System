@@ -39,12 +39,16 @@ var fileFilter = (req,file,cb) => {
     }
 }
 
-
+var fields = [
+    { name: 'image', maxCount: 1 },
+    { name: 'smallBanner', maxCount: 1 },
+    { name: 'bigBanner', maxCount: 1 }
+  ]
 
 
 
 app.use(bodyparser.urlencoded());
-app.use(multer({storage : fileStorage ,fileFilter : fileFilter}).single('image'));
+app.use(multer({storage : fileStorage ,fileFilter : fileFilter}).fields(fields));
 app.use(express.static(path.join(__dirname,'public')));
 app.use('/images',express.static(path.join(__dirname,'images')));
 app.use(session({secret:'my secrate' , resave : false ,saveUninitialized : false , store : store}));

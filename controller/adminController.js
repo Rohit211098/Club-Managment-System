@@ -13,9 +13,8 @@ exports.postCreateClub = (req,res,next) => {
     var clubHeadLastName = req.body.club_head_last;
     var clubHeadEmail = req.body.head_email;
     var clubDescription = req.body.club_description;
-    var image = req.file.path;
+    var image = req.files['image'][0].path;
 
-  
 
     var passwordEncrypt = bcryppt.hash("123456",12).then( message => {
         const head = new Head({
@@ -56,7 +55,7 @@ exports.postCreateClub = (req,res,next) => {
         console.log(err);
     });
 
-    console.log(image)
+    // console.log(image)
 
    
     

@@ -1,4 +1,5 @@
 const Clubs = require('../models/clubs')
+const Events = require('../models/event')
 
 
 function checKAdmin(req){
@@ -104,11 +105,22 @@ exports.getEventSingle = (req,res,next) => {
 
 
 exports.getEvents = (req,res,next) => {
-  res.render('events',{
-    isAuthenticated: req.session.isLoggedIn,
-    isAdmin : checKAdmin(req),
-    userType : getUserType(req)
-  });
+
+
+  Events.find({},(err,events) => {
+    return new Promise( events => {})
+  }).then(events => {
+
+    console.log(events)
+    res.render('events',{
+      isAuthenticated: req.session.isLoggedIn,
+      isAdmin : checKAdmin(req),
+      userType : getUserType(req),
+      events : events
+    });
+
+  })
+ 
 }
 
 exports.getContact = (req,res,next) => {

@@ -1,0 +1,18 @@
+
+
+<% if(isAdmin) {  %>
+  <%- include('admin-header.ejs') %>
+  
+  <% } else if(userType == 10) { %>
+    
+    <%- include('createEventModal.ejs') %>
+    <%- include('club-head-header.ejs') %>
+    
+    <% } else { %>
+      
+      <%- include('header.ejs') %>
+
+    <% }  %>
+
+  <%- include('signupModal.ejs') %>
+  <%- include('loginModal.ejs') %>

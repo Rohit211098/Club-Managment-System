@@ -6,13 +6,8 @@
 <body>
   
 
-  <% if(isAdmin) {  %>
-    <%- include('includes/admin-header.ejs') %>
-  <% } else { %>
-    <%- include('includes/header.ejs') %>
-  <% }  %>
-  <%- include('includes/signupModal.ejs') %>
-  <%- include('includes/loginModal.ejs') %>
+  <%- include('includes/head-Includes.ejs') %>
+
 
 <!-- page title -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">

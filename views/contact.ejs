@@ -5,13 +5,7 @@
 
 <body>
   
-  <% if(isAdmin) {  %>
-    <%- include('includes/admin-header.ejs') %>
-  <% } else { %>
-    <%- include('includes/header.ejs') %>
-  <% }  %>
-<%- include('includes/signupModal.ejs') %>
-<%- include('includes/loginModal.ejs') %>
+  <%- include('includes/head-Includes.ejs') %>
 
 <!-- page title -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
@@ -61,29 +55,11 @@
 <!-- gmap -->
 <section class="section pt-0">
   <!-- Google Map -->
-  <div id="map_canvas" data-latitude="51.507351" data-longitude="-0.127758"></div>
+  <div id="map_canvas" data-latitude="28.637490" data-longitude="77.434640"></div>
 </section>
 <!-- /gmap -->
 
-<!-- footer -->
-<footer>
-  <!-- newsletter -->
-  <div class="newsletter">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
-          <h3 class="text-white">Subscribe Now</h3>
-          <form action="#">
-            <div class="input-wrapper">
-              <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
-              <button type="submit" value="send" class="btn btn-primary">Join</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- footer -->
+
 <footer>
   <!-- newsletter -->
   <div class="newsletter">
