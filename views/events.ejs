@@ -3,13 +3,20 @@
 
   <%- include('includes/head.ejs') %>
 
+  <link href="css/date-picker.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="css/clock-picker.css"  id="bootstrap-css"/>
+
+
 <body>
   
 
   <% if(isAdmin) {  %>
     <%- include('includes/admin-header.ejs') %>
-  <% } else { %>
-    <%- include('includes/header.ejs') %>
+  <% } else if(userType == 10) { %>
+    <%- include('includes/createEventModal.ejs') %>
+    <%- include('includes/club-head-header.ejs') %>
+    <% } else { %>
+      <%- include('includes/header.ejs') %>  
   <% }  %>
   <%- include('includes/signupModal.ejs') %>
   <%- include('includes/loginModal.ejs') %>
@@ -29,6 +36,7 @@
   </div>
 </section>
 <!-- /page title -->
+
 
 <!-- courses -->
 <section class="section">
@@ -189,8 +197,13 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
 <script src="plugins/google-map/gmap.js"></script>
 
-<!-- Main Script -->
+
 <script src="js/script.js"></script>
+<script src="js/datepicker-full.js"></script>
+<script src="js/clock-picker.js"></script>
+<script src="js/bootstrap-datePicker.js"></script>
+<script src="js/manual.js"></script>
+
 
 </body>
 </html>
