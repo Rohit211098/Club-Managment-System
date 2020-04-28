@@ -32,6 +32,8 @@ router.post('/logout',(req,res,next) => {
    
 })
 
+router.post('/save',GustController.postSave)
+
 
  router.get('/',GustController.getIndex)
 

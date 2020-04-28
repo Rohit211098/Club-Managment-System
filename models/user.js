@@ -38,6 +38,12 @@ const userSchema = new Schema({
         required: true
     },
 
+    clubsEnrolled : {
+      
+        id : []
+        
+    },
+
     profile:{
 
         firstName: {
@@ -50,9 +56,22 @@ const userSchema = new Schema({
             required:true,
         },
 
+        gender : {
+            type : String,
+            require : true
+        },
+
+        profileImage : {
+            type : String
+        },
+
         birth_date:{
             type:String,
             required:false
+        },
+
+        Biography : {
+            type :String
         },
 
         phone_number:[{

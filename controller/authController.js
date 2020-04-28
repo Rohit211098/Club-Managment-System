@@ -8,6 +8,8 @@ exports.getSignUpDetails = (req,res,next) =>{
     const email = req.body.signupEmail;
     const password = req.body.signupPassword;
     const userName = req.body.signupUserName;
+    const gender = req.body.gender;
+
     var passwordEncrypt = bcryppt.hash(password,12).then( message => {
         const user = new User({
             rollNumber:rollNumber,
@@ -16,6 +18,7 @@ exports.getSignUpDetails = (req,res,next) =>{
             userType:0,
             isAdmin:false,
             profile : {
+                gender: gender,
                 firstName:firstName,
                 lastName:lastName
             },
@@ -45,14 +48,19 @@ exports.getlogindetails = (req,res,next) =>{
     const rollNumber = parseInt(req.body.loginRollNo); 
     const password = req.body.loginPassword;
 
-    User.findOne({rollNumber:rollNumber}).then(user => {
-        if(!user){
+    User.findOne({rollNumber:rollNumber}).then(userDetails => {
+        if(!userDetails){
             res.redirect('/#loginModal');
         }
 
-        console.log("======================== "+rollNumber+"++++++++++++++++"+password);
+        const user = {
+            isAdmin : userDetails.isAdmin,
+            userType : userDetails.userType,
+            userId: userDetails._id
+        }
+        console.log("======================== "+rollNumber+"++++++++++++++++"+password+"  "+user.userId);
 
-        bcryppt.compare(password,user.password).then( result => {
+        bcryppt.compare(password,userDetails.password).then( result => {
             if(result){
                 req.session.isLoggedIn = true;
                 req.session.user = user;

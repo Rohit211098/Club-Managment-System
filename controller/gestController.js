@@ -1,5 +1,6 @@
 const Clubs = require('../models/clubs')
 const Events = require('../models/event')
+const User = require('../models/user')
 
 
 function checKAdmin(req){
@@ -96,11 +97,23 @@ exports.getNoticeSingle = (req,res,next) => {
 }
 
 exports.getEventSingle = (req,res,next) => {
-  res.render('event-single',{
-    isAuthenticated: req.session.isLoggedIn,
-    isAdmin : checKAdmin(req),
-    userType : getUserType(req)
-  });
+
+  // console.log(req.query.id)
+
+  Events.findOne({_id : req.query.id},(err,event) => {
+   
+      return new Promise(event => {})
+  }).then(event => {
+    res.render('event-single',{
+      isAuthenticated: req.session.isLoggedIn,
+      isAdmin : checKAdmin(req),
+      userType : getUserType(req),
+      event : event
+    });
+  }).catch(error => {
+    res.redirect('/events');
+  })
+ 
 }
 
 
@@ -149,13 +162,54 @@ exports.getAbout = (req,res,next) => {
 
 exports.getProfile = (req,res,next) => {
 
-  res.render('profile',{
-    isAuthenticated: req.session.isLoggedIn,
-    isAdmin : checKAdmin(req),
-    userType : getUserType(req),
-    nameFirst:req.session.user.profile.firstName,
-    nameLast : req.session.user.profile.lastName,
+  User.findOne({_id : req.session.user.userId}).then(user => {
+
+    
+
+    res.render('profile',{
+      isAuthenticated: req.session.isLoggedIn,
+      isAdmin : checKAdmin(req),
+      userType : getUserType(req),
+      user : user
+      
+    });
+
+
+  })
+
+  
+  
+  
+}
+
+
+exports.postSave = (req,res,next) => {
+
+  var update = {}
+  var data = 'success'
+
+  if(req.query.type === 'publicInfo'){
+    update ={ $set: {'profile.Biography' : req.body.Biography  }}
+  }else if(req.query.type === 'profileImage'){
+    update ={ $set: {'profile.profileImage' : req.files['profileImage'][0].path }}
+    data = req.files['profileImage'][0].path
+  }
+
+ 
+  console.log(data,req.query.type)
+
+
+  User.findOneAndUpdate({_id: req.session.user.userId},update,function (error,doc) {
+    if (error){
+      return res.send(400, {error: err});
+    }
+ 
+    return res.send(data);
+
   });
-  
-  
+
+ 
+
+  console.log(req.session.user.userId)
+
 }
