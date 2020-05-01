@@ -102,6 +102,133 @@ new Promise ( (resolve , reject ) => {$.ajax({
 
 
 
+function saveSocialInfo() {
+
+
+    var facebook = document.getElementById("inputFacebook").value;
+    var twitter = document.getElementById("inputTwitter").value;
+
+
+
+
+    var dataString = {
+        facebook: facebook,
+        twitter: twitter
+    };
+
+    console.log(dataString)
+    new Promise((resolve, reject) => {
+        $.ajax({
+            url: '/faculty-save?type=socialInfo',
+            type: 'post',
+            data: JSON.stringify(dataString),
+            contentType: 'application/json',
+            processData: false,
+            success: function (textStatus) {
+
+                resolve(textStatus)
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                reject(textStatus)
+
+            },
+        });
+
+    }).then(data => {
+        if (!checkEmpty(facebook)) {
+            document.getElementById("inputFacebook").value = null
+            document.getElementById("inputFacebook").placeholder = facebook
+        }
+        if (!checkEmpty(twitter)) {
+            document.getElementById("inputTwitter").value = null
+            document.getElementById("inputTwitter").placeholder = twitter
+        }
+
+
+    }).catch(error => {
+        alert(error);
+    })
+
+
+}
+
+
+
+
+
+function saveCollegeInfo() {
+    var inputCollegeName = document.getElementById("inputCollegeName").value;
+    var inputCollegeCode = document.getElementById("inputCollegeCode").value;
+    var inputCorse = document.getElementById("inputCorse").value;
+    var inputBranch = document.getElementById("inputBranch").value;
+
+
+    var dataString = {
+        name: inputCollegeName,
+        code: inputCollegeCode,
+        corse: inputCorse,
+        branch: inputBranch,
+    
+
+    };
+
+    console.log(dataString)
+
+    new Promise((resolve, reject) => {
+        $.ajax({
+            url: '/faculty-save?type=collegeInfo',
+            type: 'post',
+            data: JSON.stringify(dataString),
+            contentType: 'application/json',
+            processData: false,
+            success: function (textStatus) {
+
+                resolve(textStatus)
+
+            },
+            error: function (textStatus) {
+                reject(textStatus.error)
+
+            },
+        });
+
+    }).then(data => {
+
+        if (data == 'success') {
+
+            if (!checkEmpty(inputCollegeName)) {
+                document.getElementById("inputCollegeName").placeholder = inputCollegeName;
+                document.getElementById("inputCollegeName").value = null
+            }
+            if (!checkEmpty(inputCollegeCode)) {
+                document.getElementById("inputCollegeCode").value = null
+                document.getElementById("inputCollegeCode").placeholder = inputCollegeCode;
+            }
+            if (!checkEmpty(inputCorse)) {
+                document.getElementById("inputCorse").value = null
+                document.getElementById("inputCorse").placeholder = inputCorse;
+            }
+            if (!checkEmpty(inputBranch)) {
+                document.getElementById("inputBranch").value = null
+                document.getElementById("inputBranch").placeholder = inputBranch;
+            }
+         
+
+
+
+        }
+
+
+    }).catch(error => {
+        alert(error);
+    })
+
+}
+
+
+
+
 function saveClubInfo(id){
 
     var description = document.getElementById("inputClubDescription").value;

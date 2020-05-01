@@ -280,6 +280,42 @@ exports.postFacultySave = (req,res,next)  => {
     if(!checkEmpty(req.body.gender)){
       update = Object.assign(update,{'profile.gender' : req.body.gender})
     }
+  }else if(req.query.type === 'profileImage'){
+
+    update ={ $set: {'profile.profileImage' : req.files['profileImage'][0].path }}
+    data = req.files['profileImage'][0].path
+
+  }else if(req.query.type === 'collegeInfo'){
+
+    if(!checkEmpty(req.body.name)){  
+      update = Object.assign(update,{'profile.college.college_name' : req.body.name})
+    }
+
+    if(!checkEmpty(req.body.code)){  
+      update = Object.assign(update,{'profile.college.college_code' : parseInt(req.body.code) })
+    }
+
+    if(!checkEmpty(req.body.corse)){  
+      update = Object.assign(update,{'profile.college.course_name' : req.body.corse})
+    }
+
+    if(!checkEmpty(req.body.branch)){  
+      update = Object.assign(update,{'profile.college.branch_name' : req.body.branch})
+    }
+
+  
+
+
+  }else if(req.query.type === 'socialInfo'){
+
+    if(!checkEmpty(req.body.facebook)){  
+      update = Object.assign(update,{'profile.social_media.facebook' : req.body.facebook})
+    }
+    if(!checkEmpty(req.body.twitter)){  
+      update = Object.assign(update,{'profile.social_media.twitter' : req.body.twitter})
+    }
+
+
   }
 
 
@@ -357,8 +393,10 @@ exports.postSave = (req,res,next) => {
     }
   
   }else if(req.query.type === 'profileImage'){
+
     update ={ $set: {'profile.profileImage' : req.files['profileImage'][0].path }}
     data = req.files['profileImage'][0].path
+
   }else if(req.query.type === 'personalInfo'){
 
 
@@ -396,10 +434,44 @@ exports.postSave = (req,res,next) => {
     if(!checkEmpty(req.body.gender)){
       update = Object.assign(update,{'profile.gender' : req.body.gender})
     }
+  }else if(req.query.type === 'collegeInfo'){
+
+    if(!checkEmpty(req.body.name)){  
+      update = Object.assign(update,{'profile.college.college_name' : req.body.name})
+    }
+
+    if(!checkEmpty(req.body.code)){  
+      update = Object.assign(update,{'profile.college.college_code' : parseInt(req.body.code) })
+    }
+
+    if(!checkEmpty(req.body.corse)){  
+      update = Object.assign(update,{'profile.college.course_name' : req.body.corse})
+    }
+
+    if(!checkEmpty(req.body.branch)){  
+      update = Object.assign(update,{'profile.college.branch_name' : req.body.branch})
+    }
+
+    if(!checkEmpty(req.body.semister)){  
+      update = Object.assign(update,{'profile.college.semester' : parseInt(req.body.semister)})
+    }
+
+
+  }else if(req.query.type === 'socialInfo'){
+
+    if(!checkEmpty(req.body.facebook)){  
+      update = Object.assign(update,{'profile.social_media.facebook' : req.body.facebook})
+    }
+    if(!checkEmpty(req.body.twitter)){  
+      update = Object.assign(update,{'profile.social_media.twitter' : req.body.twitter})
+    }
+
+
   }
 
+
  
-  console.log( req.body.gender)
+  console.log( update)
 
 
   User.findOneAndUpdate({_id: req.session.user.userId},update,function (error,doc) {

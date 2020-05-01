@@ -79,6 +79,10 @@ const faculty = new schema({
         }],
 
         college:{
+            college_name:{
+                type:String,
+                required:false
+            },
             college_code:{
                 type:Number,
                 required:false

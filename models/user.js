@@ -114,7 +114,8 @@ const userSchema = new Schema({
             },
             semester:{
                 type:Number,
-                required:false
+                required:false,
+                
             },
 
         },
