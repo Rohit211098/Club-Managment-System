@@ -55,6 +55,79 @@
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">SIGN UP</button>
+                            <button  href="#signupModalFaculty" data-toggle="modal" data-dismiss="modal" data-target="#signupModalFaculty" class="btn btn-primary">Faculty SIGN UP</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Modal faculity-->
+<div class="modal fade" id="signupModalFaculty" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0 p-4">
+            <div class="modal-header border-0">
+                <h3>Register</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="login">
+                    <form action="/signup-faculty" method="POST" class="row">
+                       
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="text" class="form-control mb-3" id="signupFirstName" name="signupFirstName" placeholder="First Name">
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control mb-3" id="signupLastName" name="signupLastName" placeholder="Last Name">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="text" class="form-control mb-3" id="signupEmail" name="signupUserName" placeholder="User Name ">
+                                </div>
+                                <div class="col-6">
+                                    <div class="btn-group   btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn btn-secondary active">
+                                          <input type="radio" name="gender" id="option1" autocomplete="off" value="Male" checked> Male
+                                        </label>
+                                        <label class="btn btn-secondary">
+                                          <input type="radio" name="gender" id="option2" autocomplete="off" value="Female"> Female
+                                        </label>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+                       
+                        <div class="col-12">
+                            <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail" placeholder="Email">
+                        </div>
+                        <div class="col-12">
+                            <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword" placeholder="Password">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">SIGN UP</button>
                         </div>
                     </form>
                 </div>

@@ -26,11 +26,21 @@ const clubSchema = new schema({
 
     },
 
+    clubImageBig : {
+        type :String,
+        require : true
+
+    },
+
     clubDescription : {
         type : String,
         require : true
 
-    }
+    },
+
+    clubMembers : [],
+
+    clubEvents : []
 
 })
 

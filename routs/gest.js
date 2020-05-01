@@ -21,8 +21,10 @@ router.get('/events',GustController.getEvents)
  router.get('/event-single',GustController.getEventSingle)
 router.get('/notice-single',GustController.getNoticeSingle)
 router.get('/notice',GustController.getNotice)
+router.post('/signup-faculty',auth.getSignUpFacultyDetails)
 
- router.get('/index',GustController.getIndex)
+router.get('/index',GustController.getIndex)
+
 
 router.post('/logout',(req,res,next) => {
     req.session.destroy(err => {
@@ -33,6 +35,10 @@ router.post('/logout',(req,res,next) => {
 })
 
 router.post('/save',GustController.postSave)
+
+router.post('/faculty-save',GustController.postFacultySave)
+
+router.post('/club-save',GustController.saveClubInfo)
 
 
  router.get('/',GustController.getIndex)

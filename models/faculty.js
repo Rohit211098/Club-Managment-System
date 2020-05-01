@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema;
 
-const clubHead = new schema({
+const faculty = new schema({
 
     name : {
         first : {
@@ -16,6 +16,12 @@ const clubHead = new schema({
         }
     },
     
+    userName: {
+        type: String,
+        required: true,
+        unique:true
+    },
+
     userType: {
         type: Number,
         required: true
@@ -27,8 +33,26 @@ const clubHead = new schema({
         unique : true
     },
 
+    clubId : {
+        
+        type : String
+
+    },
+
     profile:{
 
+        gender : {
+            type : String,
+            require : true
+        },
+
+        profileImage : {
+            type : String
+        },
+
+        Biography : {
+            type :String
+        },
     
         birth_date:{
             type:String,
@@ -120,4 +144,4 @@ const clubHead = new schema({
 
 })
 
-module.exports = mongoose.model('ClubHead',clubHead);
+module.exports = mongoose.model('Faculty',faculty);

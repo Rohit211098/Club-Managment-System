@@ -94,6 +94,12 @@ const userSchema = new Schema({
         }],
 
         college:{
+
+            college_name:{
+                type:String,
+                required:false
+            },
+
             college_code:{
                 type:Number,
                 required:false
@@ -110,6 +116,7 @@ const userSchema = new Schema({
                 type:Number,
                 required:false
             },
+
         },
 
         address:{

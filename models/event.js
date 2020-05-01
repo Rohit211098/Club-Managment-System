@@ -66,7 +66,17 @@ const eventSchema = new schema({
             type : String,
             require : true
        }
+   },
+
+
+   enroled : {
+
+    students : []
+
+
    }
+
+   
 
 
 

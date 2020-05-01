@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const HeadController = require('../controller/clubHeadController')
+const FacultyController = require('../controller/facultyController')
 
 
-router.post('/loginHead',HeadController.getHeadlogindetails);
+router.post('/loginHead',FacultyController.getFacultyloginDetails);
 
-router.post('/create-event',HeadController.postCreateEvent);
+router.post('/create-event',FacultyController.postCreateEvent);
 
 
 

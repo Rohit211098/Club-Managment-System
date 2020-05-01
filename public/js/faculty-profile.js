@@ -1,3 +1,5 @@
+
+
 var inputs = document.getElementsByName('profileImage');
 
 for (var i = 0, len = inputs.length; i < len; i++) {
@@ -23,7 +25,7 @@ $('#but_upload').on('click', function() {
         fd.append('profileImage',files);
 
         $.ajax({
-            url: '/save?type=profileImage',
+            url: '/faculty-save?type=profileImage',
             type: 'post',
             data: fd,
             contentType:false,
@@ -46,6 +48,8 @@ $('#but_upload').on('click', function() {
     console.log("enter")
 });
 
+
+
 function savePublicInfo(){
 
 var bio = document.getElementById("inputBio").value;
@@ -62,7 +66,7 @@ var dataString = {
 };
 console.log(dataString)
 new Promise ( (resolve , reject ) => {$.ajax({
-    url: '/save?type=publicInfo',
+    url: '/faculty-save?type=publicInfo',
     type: 'post',
     data: JSON.stringify(dataString),
     contentType: 'application/json',
@@ -97,12 +101,85 @@ new Promise ( (resolve , reject ) => {$.ajax({
 }
 
 
-function savePersonalInfo(){
 
+function saveClubInfo(id){
 
+    var description = document.getElementById("inputClubDescription").value;
+    var imageLogo = document.getElementById("clubLogo").files.item(0);
+    var imageBanner = document.getElementById("clubBigBanner").files.item(0);
 
+    console.log(description,imageLogo)
+
+    var fd = new FormData();
+    // var files = file.target.files[0];
+    fd.append('description',description);
+    fd.append('clubLogo',imageLogo);
+    fd.append('clubBanner',imageBanner);
+  
+
+    console.log(id+"sf")
+
+    // var dataString = {
+    //     description : description,
+    //     clubLogo : imageLogo,
+    //     clubBanner : imageBanner
+    // };
     
 
+    
+  
+    
+    new Promise ( (resolve , reject ) => {$.ajax({
+        url: '/club-save?id='+id,
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(textStatus ){
+            
+            resolve(textStatus)
+    
+        },
+         error: function(xhr, textStatus, errorThrown){
+            reject(textStatus)
+           
+        },    
+    });
+    
+    }).then(data => {
+        if(!checkEmpty(description)){
+            document.getElementById("inputClubDescription").value = null
+            document.getElementById("inputClubDescription").placeholder = description
+        }
+        if(imageLogo != undefined){
+            $("#club-logo").attr("src","/"+data); 
+            $("#clubLogoData").attr("data-text","select"); 
+          
+            document.getElementById("clubLogo").value = null;
+           
+    
+        }if(imageBanner != undefined){
+            $("#clubBigBannerData").attr("data-text","select"); 
+            document.getElementById("clubBigBanner").value = null;
+        
+
+
+        }
+
+        console.log(data)
+
+
+       
+    
+    }).catch(error => {
+        alert(error);
+    })
+    
+    
+}
+
+
+function savePersonalInfo(){
 
 var firstName = document.getElementById("inputFirstName").value;
 var lastName = document.getElementById("inputLastName").value;
@@ -139,7 +216,7 @@ var dataString = {
 
 console.log(dataString)
 new Promise ( (resolve , reject ) => {$.ajax({
-    url: '/save?type=personalInfo',
+    url: '/faculty-save?type=personalInfo',
     type: 'post',
     data: JSON.stringify(dataString),
     contentType: 'application/json',

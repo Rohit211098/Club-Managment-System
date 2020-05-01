@@ -1,23 +1,32 @@
-const Head = require('../models/clubHead');
+const Faculty = require('../models/faculty');
 const User = require('../models/user');
 const Event = require('../models/event');
 const bcryppt = require('bcryptjs');
 const constants = require('../Utils/constants');
 
-exports.getHeadlogindetails = (req,res,next) =>{
+exports.getFacultyloginDetails = (req,res,next) =>{
 
     const email = req.body.loginEmail; 
     const password = req.body.loginPassword;
 
-    Head.findOne({email:email}).then(ClubHead => {
-        if(!ClubHead){
+
+   
+
+    Faculty.findOne({email:email}).then(faculty => {
+        if(!faculty){
             res.redirect('/about');
         }
 
-        bcryppt.compare(password,ClubHead.password).then( result => {
+        const user = {
+            isAdmin : faculty.isAdmin,
+            userType : faculty.userType,
+            userId: faculty._id
+        }
+
+        bcryppt.compare(password,faculty.password).then( result => {
             if(result){
                 req.session.isLoggedIn = true;
-                req.session.user = ClubHead;
+                req.session.user = user;
                 return req.session.save(err => {
                     console.log(err);
                     res.redirect('/');

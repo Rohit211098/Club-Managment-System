@@ -43,6 +43,8 @@ var fields = [
     { name: 'image', maxCount: 1 },
     { name: 'profileImage', maxCount: 1 },
     { name: 'smallBanner', maxCount: 1 },
+    { name: 'clubLogo', maxCount: 1 },
+    { name: 'clubBanner', maxCount: 1 },
     { name: 'bigBanner', maxCount: 1 }
   ]
 

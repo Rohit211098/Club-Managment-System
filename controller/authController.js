@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Faculty = require('../models/faculty');
 const bcryppt = require('bcryptjs');
 
 exports.getSignUpDetails = (req,res,next) =>{
@@ -28,6 +29,49 @@ exports.getSignUpDetails = (req,res,next) =>{
     
 
         user.save().then( message => {
+            console.log(message);
+            res.redirect('/#loginModal');
+        }).catch( err =>{
+            console.log(err);
+            res.redirect('/#signupModal');
+        });
+        
+    }).catch(err =>{
+        console.log(err);
+    });
+
+    
+}
+
+
+exports.getSignUpFacultyDetails = (req,res,next) =>{
+    const firstName = req.body.signupFirstName;
+    const lastName = req.body.signupLastName;
+    const email = req.body.signupEmail;
+    const password = req.body.signupPassword;
+    const userName = req.body.signupUserName;
+    const gender = req.body.gender;
+
+    var passwordEncrypt = bcryppt.hash(password,12).then( message => {
+        const faculty = new Faculty({
+            name : {
+                first : firstName,
+                last : lastName,
+            },
+            email:email,
+            userName : userName,
+            userType:9,
+            isAdmin:false,
+            profile : {
+                gender : gender
+            },
+           
+            password:message
+        });
+
+    
+
+        faculty.save().then( message => {
             console.log(message);
             res.redirect('/#loginModal');
         }).catch( err =>{
