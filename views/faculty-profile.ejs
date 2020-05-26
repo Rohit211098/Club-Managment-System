@@ -12,6 +12,7 @@
 <body>
 
   <%- include('includes/head-Includes.ejs') %>
+  
 
 
 
@@ -286,18 +287,21 @@
                   </div>
 
                   <div class="form-row">
-                    <div class="form-group col-md-6 ">
+                    <div class="form-group col-md-4 ">
                       <label for="inputCorse">Corse</label>
                       <input type="email" class="form-control" id="inputCorse" placeholder="<%=   user.profile.college.course_name === undefined  ? ' Eg - B.Tech  ' : user.profile.college.course_name   %>"> 
                     </div>
                     
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                       <label for="inputBranch">Branch</label>
                       <input type="email" class="form-control" id="inputBranch" placeholder="<%=   user.profile.college.branch_name === undefined  ? ' Eg - CSE  ' : user.profile.college.branch_name   %>"> 
                     </div>
-                    
-                  
-                  
+
+                    <div class="form-group col-md-4">
+                      <label for="inputBranch">Position</label>
+                      <input type="email" class="form-control" id="inputPosition" placeholder="<%=   user.profile.college.position === undefined  ? ' Eg - HOD  ' : user.profile.college.position   %>"> 
+                    </div>
+
                     <button type="button" onclick="saveCollegeInfo()"  class="btn btn-primary">Save changes</button>
 
                   </div>
@@ -401,7 +405,7 @@
               <div class="card-body">
                 <form id="club-info-update" >  
                   <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                       
                       <div class="form-group">
                         <label>Select Club Logo</label>

@@ -46,14 +46,16 @@ exports.getClubs = (req,res,next) => {
      
       res.render('admin-clubs',{
         isAuthenticated: req.session.isLoggedIn,
-       clubs : clubs
+       clubs : clubs,
+       errorMessage : checkError(req)
         
       });
   
     }else{
       res.render('clubs',{
       isAuthenticated: req.session.isLoggedIn, 
-      clubs : clubs  
+      clubs : clubs ,
+      errorMessage : checkError(req) 
     });
    }
 
@@ -67,12 +69,15 @@ exports.getClubs = (req,res,next) => {
 
 exports.getIndex = (req,res,next) => {
 
+  
+
   Clubs.find({}).limit(3).exec( (err, clubs) => {
     res.render('index',{
       isAuthenticated: req.session.isLoggedIn,
       isAdmin : checKAdmin(req),
       clubs : clubs,
-      userType : getUserType(req)
+      userType : getUserType(req),
+      errorMessage : checkError(req)
     
     });
     
@@ -104,11 +109,32 @@ exports.getEventSingle = (req,res,next) => {
    
       return new Promise(event => {})
   }).then(event => {
+
+    let cordintor = []
+
+    for(i in event.cordinators){
+      // console.log()
+      User.findOne({email : event.cordinators[i] },(error,user) => {
+          return new Promise(user => {})
+      }).then(user => {
+       
+
+        cordintor.push(user) ;
+        
+        
+      })
+    }
+    console.log(cordintor)
+    
+
+   
+    
     res.render('event-single',{
       isAuthenticated: req.session.isLoggedIn,
       isAdmin : checKAdmin(req),
       userType : getUserType(req),
-      event : event
+      event : event,
+      errorMessage : checkError(req)
     });
   }).catch(error => {
     res.redirect('/events');
@@ -129,7 +155,8 @@ exports.getEvents = (req,res,next) => {
       isAuthenticated: req.session.isLoggedIn,
       isAdmin : checKAdmin(req),
       userType : getUserType(req),
-      events : events
+      events : events,
+      errorMessage : checkError(req)
     });
 
   })
@@ -140,23 +167,51 @@ exports.getContact = (req,res,next) => {
   res.render('contact',{
     isAuthenticated: req.session.isLoggedIn,
     isAdmin : checKAdmin(req),
-    userType : getUserType(req)
+    userType : getUserType(req),
+    errorMessage : checkError(req)
   });
 }
 
 exports.getClubsSingle = (req,res,next) => {
-  res.render('club-single',{
-    isAuthenticated: req.session.isLoggedIn,
-    isAdmin : checKAdmin(req),
-    userType : getUserType(req)
-  });
+
+  Clubs.findOne({_id : req.query.id}).then(club => {
+
+    Faculty.findOne({_id : club.clubHead}).then( head => {
+
+     
+
+      res.render('club-single',{
+        isAuthenticated: req.session.isLoggedIn,
+        isAdmin : checKAdmin(req),
+        userType : getUserType(req),
+        club : club,
+        head : head,
+        errorMessage : checkError(req)
+      });
+  
+
+    }).catch(error => {
+
+      console.log(error)
+
+    })
+
+    
+  }).catch(error => {
+
+    console.log(error)
+
+  })
+  
 }
+
 
 exports.getAbout = (req,res,next) => {
   res.render('about',{
     isAuthenticated: req.session.isLoggedIn,
     isAdmin : checKAdmin(req),
-    userType : getUserType(req)
+    userType : getUserType(req),
+    errorMessage : checkError(req)
   });
 }
 
@@ -177,7 +232,8 @@ exports.getProfile = (req,res,next) => {
             isAdmin : checKAdmin(req),
             userType : getUserType(req),
             user : user,
-            club : club
+            club : club,
+            errorMessage : checkError(req)
             
           });
   
@@ -189,16 +245,12 @@ exports.getProfile = (req,res,next) => {
           isAdmin : checKAdmin(req),
           userType : getUserType(req),
           user : user,
+          errorMessage : checkError(req)
     
           
         });
 
       }
-      
-  
-     
-  
-  
     })
 
 
@@ -222,10 +274,6 @@ exports.getProfile = (req,res,next) => {
     })
   }
 
-  
-
-  
-  
   
 }
 
@@ -301,6 +349,10 @@ exports.postFacultySave = (req,res,next)  => {
 
     if(!checkEmpty(req.body.branch)){  
       update = Object.assign(update,{'profile.college.branch_name' : req.body.branch})
+    }
+
+    if(!checkEmpty(req.body.position)){  
+      update = Object.assign(update,{'profile.college.position' : req.body.position})
     }
 
   
@@ -496,4 +548,15 @@ function checkEmpty(value){
   }
 
   return false
+}
+
+
+function checkError(req){
+  let message = req.flash('error');
+  if(message.length > 0){
+    message = message[0];
+  }else{
+    message = null;
+  }
+  return message;
 }

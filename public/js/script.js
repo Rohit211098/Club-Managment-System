@@ -14,12 +14,21 @@
 
     $(document).ready(function() {
 
-        if(window.location.href.indexOf('#signupModal') != -1) {
+        if(window.location.href.indexOf('#signupModalFaculty') != -1) {
+            $('#signupModalFaculty').modal('show');
+        }else if(window.location.href.indexOf('#signupModal') != -1) {
           $('#signupModal').modal('show');
         }
       
-      });
+    });
 
+    $(document).ready(function() {
+
+    if(window.location.href.indexOf('#loginHeadModal') != -1) {
+        $('#loginHeadModal').modal('show');
+    }
+    
+    });
       
     $(document).ready(function() {
 
@@ -27,7 +36,7 @@
           $('#loginModal').modal('show');
         }
       
-      });
+    });
 
     // Background-images
     $('[data-background]').each(function () {

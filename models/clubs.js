@@ -38,6 +38,10 @@ const clubSchema = new schema({
 
     },
 
+    clubBenefits : [],
+
+    
+
     clubMembers : [],
 
     clubEvents : []

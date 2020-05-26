@@ -21,13 +21,30 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-4">
-                                    <div class='input-group date' id='datepicker'>
+                                    <div class='input-group date' id='datePicker'>
                                         <input type='text' class="form-control" name="eventDate" placeholder="Date" />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
                                 </div>
+                                <script>
+
+                                $(function () {
+                                    $('#datePicker').datepicker({
+                                        format: "dd/mm/yyyy",
+                                        autoclose: true,
+                                        todayHighlight: true,
+                                        showOtherMonths: true,
+                                        selectOtherMonths: true,
+                                        autoclose: true,
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        orientation: "button"
+                                    });
+                                });
+
+                                </script>
                                 
                                 <div class="col-4">
                                     <div class="input-group " id='clockpicker'>

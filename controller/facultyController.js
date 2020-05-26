@@ -14,7 +14,8 @@ exports.getFacultyloginDetails = (req,res,next) =>{
 
     Faculty.findOne({email:email}).then(faculty => {
         if(!faculty){
-            res.redirect('/about');
+            req.flash('error','Invalid Credentials')
+            return res.redirect('/#loginHeadModal');
         }
 
         const user = {
@@ -33,7 +34,7 @@ exports.getFacultyloginDetails = (req,res,next) =>{
                 });
                 
             }else{
-                res.redirect('/#loginModal');
+                res.redirect('/#loginHeadModal');
             }
            
         }).catch(err => {
@@ -97,6 +98,7 @@ exports.postCreateEvent = (req,res,next) => {
     })
 
     User.find().count().where('email').in(cordinators).exec((err, records) => {
+        
         if(cordinators.length == records){
 
             event.save().then( message => {

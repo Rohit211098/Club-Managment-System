@@ -33,6 +33,7 @@ exports.getSignUpDetails = (req,res,next) =>{
             res.redirect('/#loginModal');
         }).catch( err =>{
             console.log(err);
+            errorHandeler(req,err);
             res.redirect('/#signupModal');
         });
         
@@ -73,10 +74,12 @@ exports.getSignUpFacultyDetails = (req,res,next) =>{
 
         faculty.save().then( message => {
             console.log(message);
-            res.redirect('/#loginModal');
+           
+            res.redirect('/#loginHeadModal');
         }).catch( err =>{
             console.log(err);
-            res.redirect('/#signupModal');
+            errorHandeler(req,err)
+            res.redirect('/#signupModalFaculty');
         });
         
     }).catch(err =>{
@@ -94,7 +97,8 @@ exports.getlogindetails = (req,res,next) =>{
 
     User.findOne({rollNumber:rollNumber}).then(userDetails => {
         if(!userDetails){
-            res.redirect('/#loginModal');
+            req.flash('error','Invalid Credentials')
+            return res.redirect('/#loginModal');
         }
 
         const user = {
@@ -132,5 +136,24 @@ exports.postLogout = (req,res,next) => {
         console.log(err);
         res.redirect('/');
       });
+}
+
+
+function errorHandeler(req,error){
+
+    if(error.code == 11000){
+        if(error.keyValue.hasOwnProperty("userName") ){
+            req.flash('error',"User Name Already Exists !! ");
+        }else if(error.keyValue.hasOwnProperty("email")){
+            req.flash('error',"Email Already Exists !! ");
+        }else if(error.keyValue.hasOwnProperty("rollNumber")){
+            req.flash('error',"RollNumber Already Exists !! ");
+        }else{
+            req.flash('error',"Error "+error.errmsg);
+        }
+        
+    }
+
+
 }
 

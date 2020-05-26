@@ -1779,5 +1779,10 @@ body{
 }
 
 
+form .error {
+  color: #ff0000;
+}
+
+
 
   

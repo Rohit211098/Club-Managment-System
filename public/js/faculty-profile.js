@@ -162,6 +162,7 @@ function saveCollegeInfo() {
     var inputCollegeCode = document.getElementById("inputCollegeCode").value;
     var inputCorse = document.getElementById("inputCorse").value;
     var inputBranch = document.getElementById("inputBranch").value;
+    var inputPosition = document.getElementById("inputPosition").value;
 
 
     var dataString = {
@@ -169,6 +170,7 @@ function saveCollegeInfo() {
         code: inputCollegeCode,
         corse: inputCorse,
         branch: inputBranch,
+        position : inputPosition
     
 
     };
@@ -212,6 +214,10 @@ function saveCollegeInfo() {
             if (!checkEmpty(inputBranch)) {
                 document.getElementById("inputBranch").value = null
                 document.getElementById("inputBranch").placeholder = inputBranch;
+            }
+            if (!checkEmpty(inputPosition)) {
+                document.getElementById("inputPosition").value = null
+                document.getElementById("inputPosition").placeholder = inputPosition;
             }
          
 

@@ -1,88 +1,142 @@
+
+
 (function ($) {
     'use strict';
-    /*==================================================================
-        [ Daterangepicker ]*/
+  
     try {
-        $('.js-datepicker').daterangepicker({
-            "singleDatePicker": true,
-            "showDropdowns": true,
-            "autoUpdateInput": false,
-            locale: {
-                format: 'DD/MM/YYYY'
-            },
-        });
-    
-        var myCalendar = $('.js-datepicker');
-        var isClick = 0;
-    
-        $(window).on('click',function(){
-            isClick = 0;
-        });
-    
-        $(myCalendar).on('apply.daterangepicker',function(ev, picker){
-            isClick = 0;
-            $(this).val(picker.startDate.format('DD/MM/YYYY'));
-    
-        });
-    
-        $('.js-btn-calendar').on('click',function(e){
-            e.stopPropagation();
-    
-            if(isClick === 1) isClick = 0;
-            else if(isClick === 0) isClick = 1;
-    
-            if (isClick === 1) {
-                myCalendar.focus();
-            }
-        });
-    
-        $(myCalendar).on('click',function(e){
-            e.stopPropagation();
-            isClick = 1;
-        });
-    
-        $('.daterangepicker').on('click',function(e){
-            e.stopPropagation();
-        });
-    
-    
+        
+        $('#loginModal').on('hidden.bs.modal', function (e) {
+            $('.alert').remove();
+        })
+        $('#loginHeadModal').on('hidden.bs.modal', function (e) {
+            $('.alert').remove();
+        })
+        $('#signupModal').on('hidden.bs.modal', function (e) {
+          $('.alert').remove();
+        })
+        $('#signupModalFaculty').on('hidden.bs.modal', function (e) {
+          $('.alert').remove();
+      })
+
     } catch(er) {console.log(er);}
-    /*[ Select 2 Config ]
-        ===========================================================*/
-    
-    try {
-        var selectSimple = $('.js-select-simple');
-    
-        selectSimple.each(function () {
-            var that = $(this);
-            var selectBox = that.find('select');
-            var selectDropdown = that.find('.select-dropdown');
-            selectBox.select2({
-                dropdownParent: selectDropdown
-            });
-        });
-    
-    } catch (err) {
-        console.log(err);
-    }
-    
+
+
 
 })(jQuery);
 
 
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+$(function() {
+    // Initialize form validation on the registration form.
+    // It has the name attribute "registration"
+    $("form[name='userLogin']").validate({
+      // Specify validation rules
+      rules: {
+        // The key name on the left side is the name attribute
+        // of an input field. Validation rules are defined
+        // on the right side
+        loginRollNo: { 
+          required : true,
+          number : true
 
-        reader.onload = function (e) {
-            $('#blah')
-                .attr('src', e.target.result)
-                .width(200)
-                .height(200);
-        };
+        } ,
+      
+        loginPassword: "required"
+      },
+      // Specify validation error messages
+      messages: {
+        loginRollNo: "Please enter Valid RollNumber",
+        
+        loginPassword: "Please enter Valid Password",
+       
+      },
+      // Make sure the form is submitted to the destination defined
+      // in the "action" attribute of the form when valid
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
 
-        reader.readAsDataURL(input.files[0]);
+
+
+    $("form[name='userSignUp']").validate({
+      // Specify validation rules
+      rules: {
+        // The key name on the left side is the name attribute
+        // of an input field. Validation rules are defined
+        // on the right side
+        signupRollNo: { 
+          required : true,
+          number : true
+
+        } ,
+
+        signupFirstName : "required",
+
+        signupLastName : "required",
+
+        signupUserName : "required",
+
+        signupEmail : "required",
+
+        signupPassword: "required"
+      },
+      // Specify validation error messages
+      messages: {
+        signupRollNo: "Please enter Valid RollNumber",
+        signupFirstName: "Please enter Valid First Name",
+        signupLastName: "Please enter Valid Last Name",
+        signupUserName: "Please enter Valid UserName",
+        signupEmail: "Please enter Valid Email",
+        
+        signupPassword: "Please enter Valid Password"
+       
+      },
+      // Make sure the form is submitted to the destination defined
+      // in the "action" attribute of the form when valid
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+
+
+
+
+  $("form[name='facultySignUp']").validate({
+    // Specify validation rules
+    rules: {
+      // The key name on the left side is the name attribute
+      // of an input field. Validation rules are defined
+      // on the right side
+   
+
+      signupFirstName : "required",
+
+      signupLastName : "required",
+
+      signupUserName : "required",
+
+      signupEmail : "required",
+
+      signupPassword: "required"
+    },
+    // Specify validation error messages
+    messages: {
+      
+      signupFirstName: "Please enter Valid First Name",
+      signupLastName: "Please enter Valid Last Name",
+      signupUserName: "Please enter Valid UserName",
+      signupEmail: "Please enter Valid Email",
+      
+      signupPassword: "Please enter Valid Password"
+     
+    },
+    // Make sure the form is submitted to the destination defined
+    // in the "action" attribute of the form when valid
+    submitHandler: function(form) {
+      form.submit();
     }
-}
+  });
+});
+
 

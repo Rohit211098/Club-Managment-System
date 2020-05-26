@@ -96,7 +96,7 @@ const faculty = new schema({
                 required:false
             },
             position:{
-                type:Number,
+                type:String,
                 required:false
             },
         },

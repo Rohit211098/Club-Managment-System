@@ -662,4 +662,9 @@ textarea {
     box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
 }
 
+.text-wrap-space{
+  white-space: pre-wrap
+}
+
+
  

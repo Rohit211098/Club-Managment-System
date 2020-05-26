@@ -6,6 +6,7 @@ const path = require('path');
 const bodyparser = require('body-parser');
 const multer = require('multer')
 const session = require('express-session');
+const flash = require('connect-flash');
 const mongodb_Session = require('connect-mongodb-session')(session);
 
 app.set('view engine','ejs');
@@ -56,6 +57,7 @@ app.use(multer({storage : fileStorage ,fileFilter : fileFilter}).fields(fields))
 app.use(express.static(path.join(__dirname,'public')));
 app.use('/images',express.static(path.join(__dirname,'images')));
 app.use(session({secret:'my secrate' , resave : false ,saveUninitialized : false , store : store}));
+app.use(flash());
 
 app.use(admin);
 app.use(gest);
