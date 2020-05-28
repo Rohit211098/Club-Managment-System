@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">LOGIN</button>
-                        <button href="/#loginHeadModal" id="headLogin" data-toggle="modal" data-dismiss="modal" data-target="#loginHeadModal" class="btn btn-primary">Club Head Login</button>
+                        <button href="/#loginFacultyModal" id="headLogin" data-toggle="modal" data-dismiss="modal" data-target="#loginFacultyModal" class="btn btn-primary">Faculty Login</button>
                     </div>
                 </form>
             </div>
@@ -34,12 +34,12 @@
 </div>
 
 
-<div class="modal fade" id="loginHeadModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="loginFacultyModal" tabindex="-1" role="dialog" aria-hidden="true">
 
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content rounded-0 border-0 p-4">
             <div class="modal-header border-0">
-                <h3>Login Club Head</h3>
+                <h3>Login Faculty</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -50,9 +50,9 @@
                 </div>
                 <% } %>
             <div class="modal-body">
-                <form action="/loginHead" method="POST" class="row">
+                <form action="/loginFaculty" name="facultyLogin" method="POST" class="row">
                     <div class="col-12">
-                        <input type="text" class="form-control mb-3" id="loginEmail" name="loginEmail" placeholder="Email">
+                        <input type="email" class="form-control mb-3" id="loginEmail" name="loginEmail" placeholder="Email">
                     </div>
                     <div class="col-12">
                         <input type="password" class="form-control mb-3" id="loginPassword" name="loginPassword" placeholder="Password">

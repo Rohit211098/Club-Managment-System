@@ -24,8 +24,8 @@
 
     $(document).ready(function() {
 
-    if(window.location.href.indexOf('#loginHeadModal') != -1) {
-        $('#loginHeadModal').modal('show');
+    if(window.location.href.indexOf('#loginFacultyModal') != -1) {
+        $('#loginFacultyModal').modal('show');
     }
     
     });

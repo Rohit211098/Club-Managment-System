@@ -8,7 +8,7 @@
         $('#loginModal').on('hidden.bs.modal', function (e) {
             $('.alert').remove();
         })
-        $('#loginHeadModal').on('hidden.bs.modal', function (e) {
+        $('#loginFacultyModal').on('hidden.bs.modal', function (e) {
             $('.alert').remove();
         })
         $('#signupModal').on('hidden.bs.modal', function (e) {
@@ -46,6 +46,30 @@ $(function() {
       // Specify validation error messages
       messages: {
         loginRollNo: "Please enter Valid RollNumber",
+        
+        loginPassword: "Please enter Valid Password",
+       
+      },
+      // Make sure the form is submitted to the destination defined
+      // in the "action" attribute of the form when valid
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+
+    $("form[name='facultyLogin']").validate({
+      // Specify validation rules
+      rules: {
+        // The key name on the left side is the name attribute
+        // of an input field. Validation rules are defined
+        // on the right side
+        loginEmail: "required",
+      
+        loginPassword: "required"
+      },
+      // Specify validation error messages
+      messages: {
+        loginEmail: "Please enter Valid Email",
         
         loginPassword: "Please enter Valid Password",
        

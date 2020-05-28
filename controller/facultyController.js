@@ -15,7 +15,7 @@ exports.getFacultyloginDetails = (req,res,next) =>{
     Faculty.findOne({email:email}).then(faculty => {
         if(!faculty){
             req.flash('error','Invalid Credentials')
-            return res.redirect('/#loginHeadModal');
+            return res.redirect('/#loginFacultyModal');
         }
 
         const user = {
@@ -34,7 +34,8 @@ exports.getFacultyloginDetails = (req,res,next) =>{
                 });
                 
             }else{
-                res.redirect('/#loginHeadModal');
+                req.flash('error','Invalid Credentials')
+                res.redirect('/#loginFacultyModal');
             }
            
         }).catch(err => {
