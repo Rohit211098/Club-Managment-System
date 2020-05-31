@@ -178,16 +178,58 @@ exports.getClubsSingle = (req,res,next) => {
 
     Faculty.findOne({_id : club.clubHead}).then( head => {
 
+      var userId =null;
+      
+
+      if(req.session.isLoggedIn){
+        userId =  req.session.user.userId;
+        User.findById({_id : req.session.user.userId}).then(user => {
+          user.clubApplied.forEach(element => {
+            
+            if (element == req.query.id){
+              return  res.render('club-single',{
+                isAuthenticated: req.session.isLoggedIn,
+                isAdmin : checKAdmin(req),
+                userType : getUserType(req),
+                club : club,
+                head : head,
+                isApplied : true,
+                userId : userId,
+                errorMessage : checkError(req)
+              });
+            }else{
+              res.render('club-single',{
+                isAuthenticated: req.session.isLoggedIn,
+                isAdmin : checKAdmin(req),
+                userType : getUserType(req),
+                club : club,
+                head : head,
+                isApplied : false,
+                userId : userId,
+                errorMessage : checkError(req)
+              });
+            }
+          });
+        })
+      }else{
+        res.render('club-single',{
+          isAuthenticated: req.session.isLoggedIn,
+          isAdmin : checKAdmin(req),
+          userType : getUserType(req),
+          club : club,
+          head : head,
+          isApplied : false,
+          userId : userId,
+          errorMessage : checkError(req)
+        });
+      }
+
+
+     
+      
      
 
-      res.render('club-single',{
-        isAuthenticated: req.session.isLoggedIn,
-        isAdmin : checKAdmin(req),
-        userType : getUserType(req),
-        club : club,
-        head : head,
-        errorMessage : checkError(req)
-      });
+    
   
 
     }).catch(error => {
@@ -420,6 +462,24 @@ exports.saveClubInfo = (req,res,next)  => {
 
   // console.log(req.query)
   
+
+}
+
+exports.getApplyClub = (req,res,next) =>{
+
+
+
+  Clubs.findByIdAndUpdate({_id:req.query.id},{ "$push": { "clubMembersRequest": req.query.sId } },{ "new": true, "upsert": true },function (error, club){
+
+    if(!error){
+      User.findByIdAndUpdate({_id:req.query.sId},{ "$push": { "clubApplied": req.query.id } },{ "new": true, "upsert": true },function (error, user){
+        console.log(user)
+
+        res.redirect('/clubs');
+      });
+    }
+  })
+
 
 }
 

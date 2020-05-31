@@ -44,6 +44,11 @@ const userSchema = new Schema({
         
     },
 
+
+    clubMember : [],
+
+    clubApplied : [],
+
     profile:{
 
         firstName: {

@@ -73,9 +73,11 @@
           </li>
         </ul> -->
       </div>
+      <% if(!isApplied) {  %>
       <div class="col-xl-3 text-sm-right text-left order-sm-2 order-3 order-xl-3 col-sm-6 mb-4 mb-xl-0">
-        <a href="#" class="btn btn-primary">Apply now</a>
+        <a href="/apply-club?id=<%= club._id %>&sId=<%= userId   %>" class="btn btn-primary">Apply now</a>
       </div>
+      <% }  %>
       <!-- border -->
       <div class="col-12 mt-4 order-4">
         <div class="border-bottom border-primary"></div>

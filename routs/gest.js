@@ -9,7 +9,7 @@ router.post('/login',auth.getlogindetails);
  router.post('/signup',auth.getSignUpDetails);
  
 router.get('/profile',isAuth,GustController.getProfile);
-
+router.get('/apply-club',isAuth,GustController.getApplyClub);
 
 router.get('/clubs',GustController.getClubs);
 
