@@ -1,0 +1,79 @@
+
+
+.no-title {
+    padding: 100px 0 1px;
+  }
+
+
+.profile .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+  
+  .profile .title {
+    color: grey;
+    font-size: 18px;
+  }
+  
+  .profile form .btn{
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    text-transform: capitalize;
+  
+    border-radius: 0;
+    font-weight: 500;
+    border: 0;
+    position: relative;
+    z-index: 1;
+    transition: .2s ease;
+    overflow: hidden;
+    color: white;
+  }
+  
+  .profile form .btn-accept {
+    background-color: darkgreen;
+  }
+  
+  .profile form .btn-reject {
+    background-color: red;
+  }
+  
+  .profile a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+  }
+  
+  .profile button:hover, a:hover {
+    opacity: 0.7;
+  }
+
+.section{
+    padding-top: 1px;
+}
+
+.separator {
+   padding-top: 20px;
+   padding-bottom: 20px;
+   margin-bottom: 10px;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    font-size: large;
+    background-color: darkgray;
+}
+.separator::before, .separator::after {
+    content: ' ';
+    flex: 1;
+    border-bottom: 1px solid #000;
+}
+.separator::before {
+    margin-right: .25em;
+}
+.separator::after {
+    margin-left: .25em;
+}

@@ -174,55 +174,75 @@ exports.getContact = (req,res,next) => {
 
 exports.getClubsSingle = (req,res,next) => {
 
+  
+
   Clubs.findOne({_id : req.query.id}).then(club => {
 
     Faculty.findOne({_id : club.clubHead}).then( head => {
 
       var userId =null;
-      
+     
 
       if(req.session.isLoggedIn){
         userId =  req.session.user.userId;
         User.findById({_id : req.session.user.userId}).then(user => {
-          user.clubApplied.forEach(element => {
+
+          let isEnrolled = false;
+
+          if(user.clubApplied.length > 0){
+
+            user.clubApplied.forEach(element => {
             
-            if (element == req.query.id){
-              return  res.render('club-single',{
-                isAuthenticated: req.session.isLoggedIn,
-                isAdmin : checKAdmin(req),
-                userType : getUserType(req),
-                club : club,
-                head : head,
-                isApplied : true,
-                userId : userId,
-                errorMessage : checkError(req)
-              });
-            }else{
-              res.render('club-single',{
-                isAuthenticated: req.session.isLoggedIn,
-                isAdmin : checKAdmin(req),
-                userType : getUserType(req),
-                club : club,
-                head : head,
-                isApplied : false,
-                userId : userId,
-                errorMessage : checkError(req)
-              });
-            }
-          });
+              if (element == req.query.id){
+                isEnrolled = true;
+                console.log("true")
+              }
+            });
+
+          }
+
+          if(user.clubsEnrolled.length > 0){
+
+            user.clubsEnrolled.forEach(element => {
+            
+              if (element == req.query.id){
+                isEnrolled = true;
+                console.log("true")
+              }
+            });
+
+          }
+
+          if(isEnrolled){
+
+            console.log("true")
+            return  res.render('club-single',{
+              isAuthenticated: req.session.isLoggedIn,
+              isAdmin : checKAdmin(req),
+              userType : getUserType(req),
+              club : club,
+              head : head,
+              isApplied : true,
+              userId : userId,
+              errorMessage : checkError(req)
+            });
+    
+          }else{
+    
+            notInClub()
+           
+          }
+
+
         })
       }else{
-        res.render('club-single',{
-          isAuthenticated: req.session.isLoggedIn,
-          isAdmin : checKAdmin(req),
-          userType : getUserType(req),
-          club : club,
-          head : head,
-          isApplied : false,
-          userId : userId,
-          errorMessage : checkError(req)
-        });
+        notInClub()
       }
+
+
+     
+        
+      
 
 
      
@@ -245,6 +265,19 @@ exports.getClubsSingle = (req,res,next) => {
 
   })
   
+}
+
+function notInClub(){
+  res.render('club-single',{
+    isAuthenticated: req.session.isLoggedIn,
+    isAdmin : checKAdmin(req),
+    userType : getUserType(req),
+    club : club,
+    head : head,
+    isApplied : false,
+    userId : userId,
+    errorMessage : checkError(req)
+  });
 }
 
 
@@ -482,6 +515,49 @@ exports.getApplyClub = (req,res,next) =>{
 
 
 }
+
+exports.getUserRequests = (req,res,next) =>{
+
+  let userRequests,members;
+
+  Faculty.findOne({_id : req.session.user.userId},(error,faculty)=>{
+    Clubs.findOne({_id : faculty.clubId},(error,club)=>{
+
+      User.find({
+        '_id': { $in: club.clubMembersRequest}
+    }, function(err, userRequests){
+
+      User.find({
+        '_id': { $in: club.clubMembers}
+    }, function(err, userMembers){
+
+      res.render('user-requests.ejs',{
+        isAuthenticated: req.session.isLoggedIn, 
+        errorMessage : checkError(req) ,
+        requests : userRequests,
+        members : userMembers,
+        clubId : faculty.clubId,
+        
+      });
+
+      console.log(userRequests)
+         
+    });
+         
+    });
+
+     
+
+    })
+  })
+
+  
+ 
+  
+}
+
+
+
 
 
 

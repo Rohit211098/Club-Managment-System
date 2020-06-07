@@ -1,6 +1,7 @@
 const Faculty = require('../models/faculty');
 const User = require('../models/user');
 const Event = require('../models/event');
+const Clubs = require('../models/clubs')
 const bcryppt = require('bcryptjs');
 const constants = require('../Utils/constants');
 
@@ -119,6 +120,36 @@ exports.postCreateEvent = (req,res,next) => {
 
     })
 
+
+
+}
+
+exports.postAccept = (req,res,next) =>{
+
+    let clubId = req.query.clubId;
+    let userId = req.query.userId;
+
+    Clubs.updateOne({_id : clubId}, { $pullAll: {clubMembersRequest: [userId] }},(error,club) => {
+        console.log(club);
+        if(!error){
+            User.updateOne({_id : userId}, { $pullAll: {clubApplied: [clubId] }},(error,club) => {
+                console.log(club);
+            })
+        }
+    })
+
+    Clubs.findByIdAndUpdate({_id:clubId},{ "$push": { "clubMembers": userId} },{ "new": true, "upsert": true },function (error, club){
+
+        if(!error){
+          User.findByIdAndUpdate({_id:userId},{ "$push": { "clubsEnrolled": clubId} },{ "new": true, "upsert": true },function (error, user){
+            console.log(user)
+    
+            res.redirect('/requests');
+          });
+        }
+      })
+
+    
 
 
 }

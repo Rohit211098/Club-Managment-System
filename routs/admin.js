@@ -4,7 +4,7 @@ const adminController = require('../controller/adminController')
 const router = express.Router();
 
 const auth = require('../controller/authController');
-const isAuth = require("../middleware/is-auth");
+const Auth = require("../middleware/auth");
 
 
 router.get("/create-club",(req,res,next) => {

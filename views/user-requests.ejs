@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+  <%- include('includes/head.ejs') %>
+  <link rel="stylesheet" href="css/user-request.css"  id="bootstrap-css"/>
+  
+
+<body>
+  
+
+<%- include('includes/header.ejs') %>
+<%- include('includes/signupModal.ejs') %>
+<%- include('includes/loginModal.ejs') %>
+
+<!-- page title -->
+<section class="no-title overlay" data-background="images/backgrounds/page-title.jpg">
+  <div class="container">
+    
+  </div>
+</section>
+<!-- /page title -->
+
+<% if  (requests.length > 0) { %>
+<section class="no-title section">
+  <div class="separator ">Pending Requests</div>
+  <div class="container">
+    <!-- course list -->
+    
+<div class="row justify-content-center">
+  <!-- course item -->
+  
+  <% for (var i = 0; i < requests.length; i++) { %>
+  <div class="col-lg-4 col-sm-6 mb-5">
+    <div class="profile">
+      <div class="card">
+        <img src="/images/banner/a.jpg" alt="John" style="width:100%">
+        <h1> <%= requests[i].profile.firstName %></h1>
+        <p class="title"><%= requests[i].email %></p>
+        <p>Harvard University</p>
+        <!-- <div style="margin: 24px 0;">
+          <a href="#"><i class="fa fa-dribbble"></i></a> 
+          <a href="#"><i class="fa fa-twitter"></i></a>  
+          <a href="#"><i class="fa fa-linkedin"></i></a>  
+          <a href="#"><i class="fa fa-facebook"></i></a> 
+        </div> -->
+        <form action="/accept?clubId=<%= clubId %>&userId=<%= requests[i]._id %>" method="post">
+          <button type="submit"  class="btn btn-accept" style="width: 100%;">Accept</button>
+        </form>
+        <form action="" method="post">
+          <button type="submit" class="btn btn-reject "style="width: 100%;">Reject</button>
+        </form>
+       
+       
+      </div>
+
+    </div>
+    
+  </div>
+  <% } %>
+
+<!-- /course list -->
+  </div>
+</section>
+<!-- /courses -->
+<% } %>
+
+
+<% if  (members.length > 0) { %>
+<section class="no-title section">
+  <div class="separator ">Members</div>
+  <div class="container">
+    <!-- course list -->
+    
+<div class="row justify-content-center">
+  <!-- course item -->
+  
+  <% for (var i = 0; i < members.length; i++) { %>
+  <div class="col-lg-4 col-sm-6 mb-5">
+    <div class="profile">
+      <div class="card">
+        <img src="/images/banner/a.jpg" alt="John" style="width:100%">
+        <h1> <%= members[i].profile.firstName %></h1>
+        <p class="title"><%= members[i].email %></p>
+        <p>Harvard University</p>
+        <!-- <div style="margin: 24px 0;">
+          <a href="#"><i class="fa fa-dribbble"></i></a> 
+          <a href="#"><i class="fa fa-twitter"></i></a>  
+          <a href="#"><i class="fa fa-linkedin"></i></a>  
+          <a href="#"><i class="fa fa-facebook"></i></a> 
+        </div> -->
+       
+        <form action="" method="post">
+          <button type="submit" class="btn btn-reject "style="width: 100%;">Reject</button>
+        </form>
+      </div>
+
+    </div>
+    
+  </div>
+  <% } %>
+
+<!-- /course list -->
+  </div>
+</section>
+<%  } %>
+
+<!-- footer -->
+<footer>
+  <!-- newsletter -->
+  <div class="newsletter">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+          <h3 class="text-white">Subscribe Now</h3>
+          <form action="#">
+            <div class="input-wrapper">
+              <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
+              <button type="submit" value="send" class="btn btn-primary">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- footer content -->
+  <div class="footer bg-footer section border-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
+          <!-- logo -->
+          <!-- <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="images/logo.png" alt="logo"></a>
+          <ul class="list-unstyled">
+            <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
+            <li class="mb-2">+1 (2) 345 6789</li>
+            <li class="mb-2">+1 (2) 345 6789</li>
+            <li class="mb-2">contact@yourdomain.com</li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- /footer -->
+
+<!-- jQuery -->
+<script src="plugins/jQuery/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<!-- slick slider -->
+<script src="plugins/slick/slick.min.js"></script>
+<!-- aos -->
+<script src="plugins/aos/aos.js"></script>
+<!-- venobox popup -->
+<script src="plugins/venobox/venobox.min.js"></script>
+<!-- mixitup filter -->
+<script src="plugins/mixitup/mixitup.min.js"></script>
+<!-- google map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
+<script src="plugins/google-map/gmap.js"></script>
+
+<!-- Main Script -->
+<script src="js/script.js"></script>
+
+</body>
+</html>

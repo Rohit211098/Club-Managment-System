@@ -38,14 +38,9 @@ const userSchema = new Schema({
         required: true
     },
 
-    clubsEnrolled : {
-      
-        id : []
-        
-    },
+    clubsEnrolled : [],
 
-
-    clubMember : [],
+    clubsRejected : [],
 
     clubApplied : [],
 
