@@ -15,6 +15,21 @@ const eventSchema = new schema({
        required :true
    },
 
+   isExpired : {
+    type : Boolean,
+
+    },
+
+    timeCoded:{
+        start : {
+            type : Number
+        },
+        end : {
+            type : Number
+        }
+    },
+    
+
    date : {
        type :String,
        required : true

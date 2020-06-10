@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
   <%- include('includes/head.ejs') %>
+  <link rel="stylesheet" href="css/event-single.css">
+  <link rel="stylesheet" href="css/user-request.css"  id="bootstrap-css"/>
 
 <body>
   
@@ -28,6 +30,36 @@
   </div>
 </section>
 <!-- /page title -->
+
+
+<% if(event.isExpired == false) { %>
+<section class="section-sm">
+  <div class="container">
+    <div class="separator "><%= (isRegStarted === true) ? "Registration Ends In" : "Registration Start In" %></div>
+    <div id="clockdiv">
+      <div>
+        <span class="days"></span>
+        <div class="smalltext">Days</div>
+      </div>
+      <div>
+        <span class="hours"></span>
+        <div class="smalltext">Hours</div>
+      </div>
+      <div>
+        <span class="minutes"></span>
+        <div class="smalltext">Minutes</div>
+      </div>
+      <div>
+        <span class="seconds"></span>
+        <div class="smalltext">Seconds</div>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+
+
 
 <!-- event single -->
 <section class="section-sm">
@@ -83,9 +115,11 @@
           </li>
         </ul>
       </div>
+      <% if( (isRegStarted === true) && (event.isExpired === false) ) { %>
       <div class="col-lg-3 text-lg-right text-left">
         <a href="#" class="btn btn-primary">Apply now</a>
       </div>
+      <% } %>
       <!-- border -->
       <div class="col-12 mt-4 order-4">
         <div class="border-bottom border-primary"></div>
@@ -216,6 +250,57 @@
     </div>
   </div>
 </footer>
+
+<script>
+
+<% if(event.isExpired == false) { %>
+
+    function getTimeRemaining(endtime) {
+      console.log(new Date())
+      const total = new Date(endtime) - Date.parse(new Date());;
+      const seconds = Math.floor((total / 1000) % 60);
+      const minutes = Math.floor((total / 1000 / 60) % 60);
+      const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(total / (1000 * 60 * 60 * 24));
+      console.log(total)
+      
+      return {
+        total,
+        days,
+        hours,
+        minutes,
+        seconds
+      };
+    }
+
+    function initializeClock(id, endtime) {
+      const clock = document.getElementById(id);
+      const daysSpan = clock.querySelector('.days');
+      const hoursSpan = clock.querySelector('.hours');
+      const minutesSpan = clock.querySelector('.minutes');
+      const secondsSpan = clock.querySelector('.seconds');
+
+      function updateClock() {
+        const t = getTimeRemaining(endtime);
+
+        daysSpan.innerHTML = t.days;
+        hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+        minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+        secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+        if (t.total <= 0) {
+          clearInterval(timeinterval);
+        }
+      }
+
+      updateClock();
+      const timeinterval = setInterval(updateClock, 1000);
+    }
+
+    const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
+    initializeClock('clockdiv', <%= event.timeCoded.start %>);
+    <% } %>
+</script>
 <!-- /footer -->
 
 <!-- jQuery -->

@@ -52,25 +52,20 @@ exports.postCreateEvent = (req,res,next) => {
 
     const title = req.body.eventName; 
     const description = req.body.eventDescription;
-    const day = req.body.eventDate.split('/')[0];
-    var monthNumber  = req.body.eventDate.split('/')[1];
-    if(monthNumber.charAt(0) == '0'){
-        monthNumber = monthNumber.substring(1);
-    }
-    const year  = req.body.eventDate.split('/')[2];
-    const month = constants.MONTHS[monthNumber];
-    const date = day + " " + month + " " +year;
+    const date = getDateInFormat(req.body.eventDate);
     const time = req.body.eventTime;
+    const endCode = convertDateTime(req.body.eventStartDate,req.body.eventStartTime)
+    const startCode = convertDateTime(req.body.eventEndDate,req.body.eventEndTime)
     const location  = req.body.eventLocation;
     const fees = req.body.eventRegistrationFees == undefined ? 0  : req.body.eventRegistrationFees ;
-    const smallBanner =  req.files['smallBanner'][0].path;
-    const bigBanner =  req.files['bigBanner'][0].path;
+    const smallBanner =     req.files['smallBanner'] == undefined ? 0  : req.files['smallBanner'][0].path;
+    const bigBanner =    req.files['bigBanner'] == undefined ? 0  : req.files['bigBanner'][0].path;
     const email = req.session.user.email;
     const currentDate = new Date().toDateString();
     const id = req.session.user._id;
     var cordinators= [];
     
-    console.log(date ,constants.MONTHS[1]);
+   
 
     var i =1;
     while(req.body.name[i] != undefined){
@@ -85,7 +80,12 @@ exports.postCreateEvent = (req,res,next) => {
         date : date,
         time : time,
         fees : fees,
+        isExpired : false,
         location : location,
+        timeCoded: {
+            start : startCode,
+            end : endCode
+        },
         images : {
             bigBanner : bigBanner,
             smallBanner : smallBanner
@@ -100,27 +100,65 @@ exports.postCreateEvent = (req,res,next) => {
     })
 
     User.find().count().where('email').in(cordinators).exec((err, records) => {
-        
-        if(cordinators.length == records){
 
-            event.save().then( message => {
-                console.log(message);
-                res.redirect('/events');
-            }).catch( err =>{
-                console.log(err);
-                res.redirect('/#signupModal');
-            });
-        
+        if(!err){
+            if(cordinators.length == records){
 
-
-
+                event.save().then( message => {
+                    console.log(message);
+                    res.redirect('/events');
+                }).catch( err =>{
+                    console.log(err);
+                    res.redirect('/#signupModal');
+                });
+            
+    
+    
+    
+            }else{
+                console.log("cordinator problem")
+            }
         }else{
-
+            console.log("error "+err)
         }
+        
+       
 
     })
 
 
+
+}
+
+function convertDateTime(date,time){
+
+    let day = date.split('/')[0];
+    let monthNumber  = date.split('/')[1];
+    let year  = date.split('/')[2];
+
+    let hour  = time.split(':')[0];
+    let minutes  = time.split(':')[1];
+
+    var dateCoded = new Date(parseInt(year),parseInt(monthNumber),parseInt(day),parseInt(hour),parseInt(minutes)); // some mock date
+    var milliseconds = dateCoded.getTime();
+    return milliseconds;
+
+}
+
+function getDateInFormat(date){
+   
+    if(date == ""){
+        return;
+    }
+    const day = date.split('/')[0];
+    var monthNumber  = date.split('/')[1];
+    if(monthNumber.charAt(0) == '0'){
+        monthNumber = monthNumber.substring(1);
+    }
+    const year  = date.split('/')[2];
+    const month = constants.MONTHS[monthNumber];
+
+    return day + " " + month + " " +year;
 
 }
 

@@ -12,11 +12,44 @@ $(function () {
     });
 });
 
+$(function () {
+    $('#datePickerStart').datepicker({
+        format: "dd/mm/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        autoclose: true,
+        changeMonth: true,
+        changeYear: true,
+        orientation: "button"
+    });
+
+    $('#datePickerEnd').datepicker({
+        format: "dd/mm/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        autoclose: true,
+        changeMonth: true,
+        changeYear: true,
+        orientation: "button"
+    });
+});
+
 
 $(function () {
     $('#clockpicker').clockpicker({
         autoclose: true,
     });
+    $('#clockpickerStart').clockpicker({
+        autoclose: true,
+    });
+    $('#clockpickerEnd').clockpicker({
+        autoclose: true,
+    });
+    
 });
 
 $(document).ready(function(){  

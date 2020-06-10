@@ -138,34 +138,73 @@ exports.getEventSingle = (req,res,next) => {
    
       return new Promise(event => {})
   }).then(event => {
+    console.log(!event.isExpired)
 
-    let cordintor = []
+    if(!event.isExpired){
+      
+        console.log( checkEventExpiration(event))
+        if( checkEventExpiration(event)){
+          Events.findOneAndUpdate({_id : req.query.id},{isExpired : true},(err,eventUpdate) => {
+            res.render('event-single',{
+              isAuthenticated: req.session.isLoggedIn,
+              isAdmin : checKAdmin(req),
+              userType : getUserType(req),
+              event : eventUpdate,
+              isRegStarted : true,
+              errorMessage : checkError(req)
+            });
+          })
+        
+  
+        }else{
+          console.log(isRegStarted(event.timeCoded.start))
+          res.render('event-single',{
+            isAuthenticated: req.session.isLoggedIn,
+            isAdmin : checKAdmin(req),
+            userType : getUserType(req),
+            event : event,
+            isRegStarted : isRegStarted(event.timeCoded.start),
+            errorMessage : checkError(req)
+          });
+        }
+      
+    }else{
 
-    for(i in event.cordinators){
-      // console.log()
-      User.findOne({email : event.cordinators[i] },(error,user) => {
-          return new Promise(user => {})
-      }).then(user => {
+
+      res.render('event-single',{
+        isAuthenticated: req.session.isLoggedIn,
+        isAdmin : checKAdmin(req),
+        userType : getUserType(req),
+        event : event,
+        isRegStarted : true,
+        errorMessage : checkError(req)
+      });
+      
+    }
+    
+
+    // let cordintor = []
+    // let isStarted = false;
+
+    // for(i in event.cordinators){
+    //   // console.log()
+    //   User.findOne({email : event.cordinators[i] },(error,user) => {
+    //       return new Promise(user => {})
+    //   }).then(user => {
        
 
-        cordintor.push(user) ;
+    //     cordintor.push(user) ;
         
         
-      })
-    }
-    console.log(cordintor)
+    //   })
+    // }
+    // console.log(cordintor)
     
-
-   
     
-    res.render('event-single',{
-      isAuthenticated: req.session.isLoggedIn,
-      isAdmin : checKAdmin(req),
-      userType : getUserType(req),
-      event : event,
-      errorMessage : checkError(req)
-    });
+    
+    
   }).catch(error => {
+    console.log(error)
     res.redirect('/events');
   })
  
@@ -173,6 +212,11 @@ exports.getEventSingle = (req,res,next) => {
 
 
 exports.getEvents = (req,res,next) => {
+
+
+  
+
+
 
 
   Events.find({},(err,events) => {
@@ -724,4 +768,29 @@ function checkError(req){
     message = null;
   }
   return message;
+}
+
+function checkEventExpiration(events){
+  // Events.find({},(err,events) => {
+    
+    var lastDate = events.timeCoded.end;
+    const total = new Date(lastDate) - Date.parse(new Date());
+    
+
+    if(total < 0){
+       return true
+    }
+
+    return false
+
+  // })
+}
+
+function isRegStarted(date){
+  if( (new Date(date) - Date.parse(new Date())) <= 0  ){
+    return true;
+  }
+
+  return false;
+
 }

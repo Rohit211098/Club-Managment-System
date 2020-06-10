@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="createEvent" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content rounded-0 border-0 p-4">
+        <div class="modal-content w-100 rounded-0 border-0 p-4">
             <div class="modal-header border-0">
                 <h3>Create Event</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -61,7 +61,64 @@
                             </div>
                          
                         </div>
-                    </div>     
+                    </div>
+                    <div class="col-12">
+                       
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class='input-group date' id='datePickerStart'>
+                                        <input type='text' class="form-control" name="eventStartDate" placeholder="Start Date" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-6">
+                                    <div class="input-group " id='clockpickerStart'>
+                                        <input type="text" class="form-control" name="eventStartTime" placeholder="Start Time">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                         
+                        </div>
+                    </div>    
+                    
+                    <div class="col-12">
+                       
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class='input-group date' id='datePickerEnd'>
+                                        <input type='text' class="form-control" name="eventEndDate" placeholder="End Date" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-6">
+                                    <div class="input-group " id='clockpickerEnd'>
+                                        <input type="text" class="form-control" name="eventEndTime" placeholder="End Time">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                         
+                        </div>
+                    </div> 
+
+
                     <div class="col-12">
                         <div class="row">
                             <div class="col-6">
