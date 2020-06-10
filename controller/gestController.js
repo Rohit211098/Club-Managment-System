@@ -69,17 +69,46 @@ exports.getClubs = (req,res,next) => {
 
 exports.getIndex = (req,res,next) => {
 
+
   
 
   Clubs.find({}).limit(3).exec( (err, clubs) => {
-    res.render('index',{
-      isAuthenticated: req.session.isLoggedIn,
-      isAdmin : checKAdmin(req),
-      clubs : clubs,
-      userType : getUserType(req),
-      errorMessage : checkError(req)
-    
-    });
+
+    if (!err) {
+
+      Events.find({}).limit(3).exec( (err, events) => {
+
+        Faculty.count().exec(function (err, count) {
+
+          
+          var random = Math.floor(Math.random() * count)
+        
+         
+          Faculty.find().skip(random).limit(3).exec(
+            function (error, faculty) {
+
+              
+              if (!error) {
+                res.render('index',{
+                  isAuthenticated: req.session.isLoggedIn,
+                  isAdmin : checKAdmin(req),
+                  clubs : clubs,
+                  events : events,
+                  facultys : faculty,
+                  userType : getUserType(req),
+                  errorMessage : checkError(req)
+                
+                });
+              }
+              
+            })
+        })
+
+
+      })
+      
+    }
+
     
   })
 }
