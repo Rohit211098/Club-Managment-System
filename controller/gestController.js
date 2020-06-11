@@ -138,68 +138,87 @@ exports.getEventSingle = (req,res,next) => {
    
       return new Promise(event => {})
   }).then(event => {
-    console.log(!event.isExpired)
 
-    if(!event.isExpired){
+
+
+    let cordintor = []
+    let isStarted = false;
+    var j = 1;
+
+    for(i in event.cordinators){
+      // console.log()
+      User.findOne({email : event.cordinators[i] },(error,user) => {
+          return new Promise(user => {})
+      }).then(user => {
+       
+
+        cordintor.push(user) ;
       
-        console.log( checkEventExpiration(event))
-        if( checkEventExpiration(event)){
-          Events.findOneAndUpdate({_id : req.query.id},{isExpired : true},(err,eventUpdate) => {
+
+
+        if(cordintor.length == event.cordinators.length){
+          
+          console.log(cordintor)
+          
+          if(!event.isExpired){
+        
+          
+            if( checkEventExpiration(event)){
+              Events.findOneAndUpdate({_id : req.query.id},{isExpired : true},(err,eventUpdate) => {
+                res.render('event-single',{
+                  isAuthenticated: req.session.isLoggedIn,
+                  isAdmin : checKAdmin(req),
+                  userType : getUserType(req),
+                  event : eventUpdate,
+                  cordinators : cordintor,
+                  isRegStarted : true,
+                  errorMessage : checkError(req)
+                });
+              })
+              
+      
+            }else{
+              
+              res.render('event-single',{
+                isAuthenticated: req.session.isLoggedIn,
+                isAdmin : checKAdmin(req),
+                userType : getUserType(req),
+                event : event,
+                cordinators : cordintor,
+                isRegStarted : isRegStarted(event.timeCoded.start),
+                errorMessage : checkError(req)
+              });
+            }
+          }else{
+        
+        
             res.render('event-single',{
               isAuthenticated: req.session.isLoggedIn,
               isAdmin : checKAdmin(req),
               userType : getUserType(req),
-              event : eventUpdate,
+              event : event,
+              cordinators : cordintor,
               isRegStarted : true,
               errorMessage : checkError(req)
             });
-          })
+        
+          }
         
   
-        }else{
-          console.log(isRegStarted(event.timeCoded.start))
-          res.render('event-single',{
-            isAuthenticated: req.session.isLoggedIn,
-            isAdmin : checKAdmin(req),
-            userType : getUserType(req),
-            event : event,
-            isRegStarted : isRegStarted(event.timeCoded.start),
-            errorMessage : checkError(req)
-          });
         }
+        
+      })
       
-    }else{
 
-
-      res.render('event-single',{
-        isAuthenticated: req.session.isLoggedIn,
-        isAdmin : checKAdmin(req),
-        userType : getUserType(req),
-        event : event,
-        isRegStarted : true,
-        errorMessage : checkError(req)
-      });
-      
+   
     }
     
-
-    // let cordintor = []
-    // let isStarted = false;
-
-    // for(i in event.cordinators){
-    //   // console.log()
-    //   User.findOne({email : event.cordinators[i] },(error,user) => {
-    //       return new Promise(user => {})
-    //   }).then(user => {
-       
-
-    //     cordintor.push(user) ;
-        
-        
-    //   })
-    // }
-    // console.log(cordintor)
     
+    
+
+   
+
+   
     
     
     
@@ -223,7 +242,7 @@ exports.getEvents = (req,res,next) => {
     return new Promise( events => {})
   }).then(events => {
 
-    console.log(events)
+  
     res.render('events',{
       isAuthenticated: req.session.isLoggedIn,
       isAdmin : checKAdmin(req),
@@ -268,7 +287,7 @@ exports.getClubsSingle = (req,res,next) => {
             
               if (element == req.query.id){
                 isEnrolled = true;
-                console.log("true")
+               
               }
             });
 
@@ -280,7 +299,7 @@ exports.getClubsSingle = (req,res,next) => {
             
               if (element == req.query.id){
                 isEnrolled = true;
-                console.log("true")
+               
               }
             });
 
@@ -288,7 +307,7 @@ exports.getClubsSingle = (req,res,next) => {
 
           if(isEnrolled){
 
-            console.log("true")
+           
             return  res.render('club-single',{
               isAuthenticated: req.session.isLoggedIn,
               isAdmin : checKAdmin(req),
@@ -370,7 +389,7 @@ exports.getProfile = (req,res,next) => {
 
     Faculty.findOne({_id : req.session.user.userId}).then(user => {
 
-      console.log(user.profile.gender)
+      
 
       if(getUserType(req) == 10){
         Clubs.findOne({_id : user.clubId}).then(club => { 
@@ -408,7 +427,7 @@ exports.getProfile = (req,res,next) => {
 
     User.findOne({_id : req.session.user.userId}).then(user => {
 
-      console.log(user.profile.gender)
+     
   
       res.render('profile',{
         isAuthenticated: req.session.isLoggedIn,
@@ -530,7 +549,7 @@ exports.postFacultySave = (req,res,next)  => {
 
   });
 
-  console.log(req.session.user.userId)
+
 
 }
 
@@ -552,7 +571,7 @@ exports.saveClubInfo = (req,res,next)  => {
     data = req.files['clubLogo'][0].path;
   }
 
-  console.log(update)
+  
 
 
   Clubs.findOneAndUpdate({_id: req.query.id},update,function (error,doc) {
@@ -579,7 +598,7 @@ exports.getApplyClub = (req,res,next) =>{
 
     if(!error){
       User.findByIdAndUpdate({_id:req.query.sId},{ "$push": { "clubApplied": req.query.id } },{ "new": true, "upsert": true },function (error, user){
-        console.log(user)
+        
 
         res.redirect('/clubs');
       });
@@ -613,7 +632,7 @@ exports.getUserRequests = (req,res,next) =>{
         
       });
 
-      console.log(userRequests)
+      
          
     });
          
@@ -732,7 +751,7 @@ exports.postSave = (req,res,next) => {
 
 
  
-  console.log( update)
+  
 
 
   User.findOneAndUpdate({_id: req.session.user.userId},update,function (error,doc) {
@@ -745,7 +764,7 @@ exports.postSave = (req,res,next) => {
 
   });
 
-  console.log(req.session.user.userId)
+  
 
 }
 

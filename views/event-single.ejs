@@ -28,6 +28,7 @@
       </div>
     </div>
   </div>
+  
 </section>
 <!-- /page title -->
 
@@ -113,11 +114,11 @@
               </div>
             </div>
           </li>
-        </ul>
+        </ul>  
       </div>
       <% if( (isRegStarted === true) && (event.isExpired === false) ) { %>
       <div class="col-lg-3 text-lg-right text-left">
-        <a href="#" class="btn btn-primary">Apply now</a>
+        <button type="button"  class="btn btn-primary" onclick="register('<%= event.createdBy.id %>','<%= event._id %>')">Register Now</button>
       </div>
       <% } %>
       <!-- border -->
@@ -133,27 +134,34 @@
       </div>
     </div>
     <!-- event speakers -->
-    <div class="row">
-      <div class="col-12">
-        <h3 class="mb-4">Event Cordinators</h3>
-      </div>
-      
-      <!-- speakers -->
-      <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-        <div class="media">
-          <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
-          <div class="media-body">
-            <h4 class="mt-0">Jack Mastio</h4>
-            Teacher
+    
+    <!-- <div class="col-lg-4 col-sm-6 mb-5"> -->
+      <div class="row">
+        <div class="col-12">
+          <h3 class="mb-4">Event Cordinators</h3>
+        </div>
+        
+        <!-- speakers -->
+        <% for(let k = 0 ; k < cordinators.length ; k++) { %>
+        <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+          <div class="media">
+            <img class="mr-3 img-fluid" src="<%= (cordinators[k].profile.profileImage != undefined ) ? cordinators[k].profile.profileImage : 'images/event-speakers/speaker-1.jpg' %>" alt="speaker" style="width: 85px; height: 85px;">
+            <div class="media-body">
+              <h4 class="mt-0"><%= cordinators[k].profile.firstName %>  <%= cordinators[k].profile.lastName %></h4>
+              Student
+            </div>
           </div>
         </div>
+        <% } %>
+       
+        <!-- border -->
+        <div class="col-12 mt-4 order-4">
+          <div class="border-bottom border-primary"></div>
+        </div>
       </div>
-     
-      <!-- border -->
-      <div class="col-12 mt-4 order-4">
-        <div class="border-bottom border-primary"></div>
-      </div>
-    </div>
+
+    <!-- </div> -->
+    
   </div>
 </section>
 <!-- /event single -->
@@ -253,6 +261,7 @@
 
 <script>
 
+
 <% if(event.isExpired == false) { %>
 
     function getTimeRemaining(endtime) {
@@ -298,7 +307,7 @@
     }
 
     const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
-    initializeClock('clockdiv', <%= event.timeCoded.start %>);
+    initializeClock('clockdiv',<%= (isRegStarted === true) ? event.timeCoded.end : event.timeCoded.start %> );
     <% } %>
 </script>
 <!-- /footer -->
@@ -321,6 +330,8 @@
 
 <!-- Main Script -->
 <script src="js/script.js"></script>
+<script src="js/notify.js"></script>
+<script src="js/event-single.js"></script>
 
 </body>
 </html>

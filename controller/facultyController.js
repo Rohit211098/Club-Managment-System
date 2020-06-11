@@ -54,8 +54,8 @@ exports.postCreateEvent = (req,res,next) => {
     const description = req.body.eventDescription;
     const date = getDateInFormat(req.body.eventDate);
     const time = req.body.eventTime;
-    const endCode = convertDateTime(req.body.eventStartDate,req.body.eventStartTime)
-    const startCode = convertDateTime(req.body.eventEndDate,req.body.eventEndTime)
+    const endCode = convertDateTime(req.body.eventEndDate,req.body.eventEndTime)
+    const startCode = convertDateTime(req.body.eventStartDate,req.body.eventStartTime)
     const location  = req.body.eventLocation;
     const fees = req.body.eventRegistrationFees == undefined ? 0  : req.body.eventRegistrationFees ;
     const smallBanner =     req.files['smallBanner'] == undefined ? 0  : req.files['smallBanner'][0].path;
@@ -74,43 +74,55 @@ exports.postCreateEvent = (req,res,next) => {
     
     }
 
-    const event = new Event({
-        heading : title,
-        description :description,
-        date : date,
-        time : time,
-        fees : fees,
-        isExpired : false,
-        location : location,
-        timeCoded: {
-            start : startCode,
-            end : endCode
-        },
-        images : {
-            bigBanner : bigBanner,
-            smallBanner : smallBanner
-        },
-        createdBy : {
-            email : email,
-            id : id,
-            date : currentDate 
-        },
 
-        cordinators : cordinators
-    })
 
     User.find().count().where('email').in(cordinators).exec((err, records) => {
 
         if(!err){
             if(cordinators.length == records){
 
-                event.save().then( message => {
-                    console.log(message);
-                    res.redirect('/events');
-                }).catch( err =>{
-                    console.log(err);
-                    res.redirect('/#signupModal');
-                });
+
+                Faculty.findById({_id : req.session.user.userId },(error,faculty) => {
+
+                    if(!error){
+
+                        const event = new Event({
+                            heading : title,
+                            description :description,
+                            date : date,
+                            time : time,
+                            fees : fees,
+                            isExpired : false,
+                            location : location,
+                            timeCoded: {
+                                start : startCode,
+                                end : endCode
+                            },
+                            images : {
+                                bigBanner : bigBanner,
+                                smallBanner : smallBanner
+                            },
+                            createdBy : {
+                                email : faculty.email,
+                                id : faculty.clubId,
+                                date : currentDate 
+                            },
+                    
+                            cordinators : cordinators
+                        })
+                        
+                        event.save().then( message => {
+                            console.log(message);
+                            res.redirect('/events');
+                        }).catch( err =>{
+                            console.log(err);
+                            res.redirect('/#signupModal');
+                        });
+
+                    }
+                })
+
+                
             
     
     
@@ -139,7 +151,7 @@ function convertDateTime(date,time){
     let hour  = time.split(':')[0];
     let minutes  = time.split(':')[1];
 
-    var dateCoded = new Date(parseInt(year),parseInt(monthNumber),parseInt(day),parseInt(hour),parseInt(minutes)); // some mock date
+    var dateCoded = new Date(parseInt(year),parseInt(monthNumber)-1,parseInt(day),parseInt(hour),parseInt(minutes)); // some mock date
     var milliseconds = dateCoded.getTime();
     return milliseconds;
 
@@ -151,12 +163,14 @@ function getDateInFormat(date){
         return;
     }
     const day = date.split('/')[0];
-    var monthNumber  = date.split('/')[1];
+    var monthNumber  = date.split('/')[1] ;
+    console.log(monthNumber)
     if(monthNumber.charAt(0) == '0'){
         monthNumber = monthNumber.substring(1);
     }
+
     const year  = date.split('/')[2];
-    const month = constants.MONTHS[monthNumber];
+    const month = constants.MONTHS[parseInt(monthNumber)-1];
 
     return day + " " + month + " " +year;
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const auth = require('../controller/authController');
 const GustController = require('../controller/gestController');
+const EventController = require('../controller/eventController');
 const Auth = require("../middleware/auth");
 
 const router = express.Router();
@@ -12,14 +13,14 @@ router.get('/profile',Auth.getAuth,GustController.getProfile);
 router.get('/apply-club',Auth.getAuth,GustController.getApplyClub);
 
 router.get('/clubs',GustController.getClubs);
-
+router.post('/event-registration',EventController.postRegisterEvent)
 router.get('/about',GustController.getAbout)
  router.get('/club-single',GustController.getClubsSingle)
 router.get('/contact',GustController.getContact)
 router.get('/requests',GustController.getUserRequests)
 
 router.get('/events',GustController.getEvents)
- router.get('/event-single',GustController.getEventSingle)
+ router.get('/event-single',Auth.getAuth,GustController.getEventSingle)
 router.get('/notice-single',GustController.getNoticeSingle)
 router.get('/notice',GustController.getNotice)
 router.post('/signup-faculty',auth.getSignUpFacultyDetails)
