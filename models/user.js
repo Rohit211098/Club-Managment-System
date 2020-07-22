@@ -40,6 +40,8 @@ const userSchema = new Schema({
 
     clubsEnrolled : [],
 
+    eventsEnrolled : [],
+
     clubsRejected : [],
 
     clubApplied : [],

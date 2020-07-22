@@ -9,12 +9,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/create-event" method="POST" enctype="multipart/form-data" class="row">
+                <form action="/create-event" name="createEvent" method="POST" enctype="multipart/form-data" class="row">
                     <div class="col-12">
                         <input type="text" class="form-control mb-3" id="eventName" name="eventName" placeholder="Event Heading">
                     </div>
                     <div class="col-12">
-                        <input type="text" class="form-control mb-3" id="eventDescription" name="eventDescription" placeholder="Event Description">
+                        <textarea cols="10" rows="5" type="text" class="form-control mb-3" id="eventDescription" name="eventDescription" placeholder="Event Description" style="white-space: pre-wrap;"></textarea>
                     </div>
                     <div class="col-12">
                        
@@ -56,7 +56,7 @@
                                 </div>
 
                                 <div class="col-4">
-                                    <input type="number" class="form-control mb-3" id="eventLocation" name="eventRegistrationFees" placeholder="Registration Fees">
+                                    <input type="text" class="form-control mb-3" id="eventRegistrationFees" name="eventRegistrationFees" placeholder="Registration Fees">
                                 </div>
                             </div>
                          
@@ -123,12 +123,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="file-upload-wrapper form-control mb-3" data-text="Select Small Banner!">
-                                    <input name="smallBanner" type="file" class="file-upload-field" value="">
+                                    <input name="smallBanner" id="smallBanner" type="file" class="file-upload-field" value="">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="file-upload-wrapper form-control mb-3" data-text="Select big Banner!">
-                                    <input name="bigBanner" type="file" class="file-upload-field" value="">
+                                    <input name="bigBanner" id="bigBanner" type="file" class="file-upload-field" value="">
                                 </div>
                             </div>
                         </div>
@@ -140,11 +140,12 @@
                     <div class="col-12 table-responsive ">
                         <table class="table table-border-hidden" id="dynamic_field">  
                             <tr class="table-border-hidden">  
-                                 <td><input type="text" name="name[1]" placeholder="Cordinator UserId" class="form-control name_list" /></td>  
+                                 <td><input type="text" id="cordinatorId" name="name[1]" placeholder="Cordinator UserId" class="form-control name_list" /></td>  
                                  <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
                             </tr>  
                        </table>  
                     </div>
+                    <div class="errorTxt"></div>
 
                     <div class="col-12">
 

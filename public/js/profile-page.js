@@ -79,14 +79,25 @@ new Promise ( (resolve , reject ) => {$.ajax({
 });
 
 }).then(data => {
-    if(!checkEmpty(bio)){
-        document.getElementById("inputBio").value = null
-        document.getElementById("inputBio").placeholder = bio
+
+    if(data == "success"){
+        $.notify("Saved" , {
+               
+            autoHide: false,
+            position: 'right bottom',
+            className: 'success'
+           
+          });
+        if(!checkEmpty(bio)){
+            document.getElementById("inputBio").value = null
+            document.getElementById("inputBio").placeholder = bio
+        }
+        if(!checkEmpty(dob)){
+            document.getElementById("inputDOB").value = null
+            document.getElementById("inputDOB").placeholder = dob
+        }
     }
-    if(!checkEmpty(dob)){
-        document.getElementById("inputDOB").value = null
-        document.getElementById("inputDOB").placeholder = dob
-    }
+  
    
 
 }).catch(error => {
@@ -98,10 +109,6 @@ new Promise ( (resolve , reject ) => {$.ajax({
 
 
 function savePersonalInfo(){
-
-
-
-    
 
 
 var firstName = document.getElementById("inputFirstName").value;
@@ -158,6 +165,13 @@ new Promise ( (resolve , reject ) => {$.ajax({
 }).then(data => {
 
     if(data == 'success'){
+        $.notify("Personal Info Saved" , {
+               
+            autoHide: false,
+            position: 'right bottom',
+            className: 'success'
+           
+          });
         
     if(!checkEmpty(firstName)){
         document.getElementById("inputFirstName").placeholder = firstName;

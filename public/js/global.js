@@ -161,6 +161,80 @@ $(function() {
       form.submit();
     }
   });
+
+
+
+  $("form[name='createEvent']").validate({
+    // Specify validation rules
+    rules: {
+      // The key name on the left side is the name attribute
+      // of an input field. Validation rules are defined
+      // on the right side
+   
+
+      eventName : "required",
+
+      eventDescription : "required",
+
+      eventDate : "required",
+
+      eventTime : "required",
+
+      eventRegistrationFees: "required",
+
+      eventStartDate : "required",
+
+      eventStartTime : "required",
+
+      eventEndDate : "required",
+
+      eventEndTime : "required",
+
+      smallBanner: "required",
+
+      bigBanner : "required",
+
+      eventLocation : "required",
+
+      cordinatorId : "required",
+
+     
+    },
+    // Specify validation error messages
+    messages: {
+      
+      eventName: "Please Enter Event Name",
+      eventDescription: "Please Enter Event Description",
+      eventDate : "Please Enter Event Date",
+
+      eventTime : "Please Enter Event Time",
+
+      eventRegistrationFees: "Please Enter Registration Fees",
+
+      eventStartDate : "Please Enter Registration Start Date",
+
+      eventStartTime : "Please Enter Registration Start Time",
+
+      eventEndDate : "Please Enter Registration End Date",
+
+      eventEndTime : "Please Enter Registration End Time",
+
+      smallBanner: "Please Select Samll Banner",
+
+      bigBanner : "Please Select Big Banner",
+
+      eventLocation : "Please Enter Event Location",
+
+      cordinatorId : "Please Enter At Least One Cordinator ID",
+    },
+    errorElement : 'div',
+    errorLabelContainer: '.errorTxt',
+    // Make sure the form is submitted to the destination defined
+    // in the "action" attribute of the form when valid
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
 });
 
 

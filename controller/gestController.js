@@ -145,74 +145,187 @@ exports.getEventSingle = (req,res,next) => {
     let isStarted = false;
     var j = 1;
 
-    for(i in event.cordinators){
-      // console.log()
-      User.findOne({email : event.cordinators[i] },(error,user) => {
-          return new Promise(user => {})
-      }).then(user => {
-       
+    if(req.session.user.userType < 9){
 
-        cordintor.push(user) ;
-      
-
-
-        if(cordintor.length == event.cordinators.length){
-          
-          console.log(cordintor)
-          
-          if(!event.isExpired){
-        
-          
-            if( checkEventExpiration(event)){
-              Events.findOneAndUpdate({_id : req.query.id},{isExpired : true},(err,eventUpdate) => {
-                res.render('event-single',{
-                  isAuthenticated: req.session.isLoggedIn,
-                  isAdmin : checKAdmin(req),
-                  userType : getUserType(req),
-                  event : eventUpdate,
-                  cordinators : cordintor,
-                  isRegStarted : true,
-                  errorMessage : checkError(req)
-                });
-              })
-              
-      
-            }else{
-              
-              res.render('event-single',{
-                isAuthenticated: req.session.isLoggedIn,
-                isAdmin : checKAdmin(req),
-                userType : getUserType(req),
-                event : event,
-                cordinators : cordintor,
-                isRegStarted : isRegStarted(event.timeCoded.start),
-                errorMessage : checkError(req)
-              });
+      User.findById({_id : req.session.user.userId },(error,currentUser) => {
+        var isApplyed = false;
+        if(!error&&currentUser != null){
+          for(var i = 0; i<currentUser.eventsEnrolled.length ; i++){
+            if(currentUser.eventsEnrolled[i] == event._id){
+                isApplyed = true;
+                break;
             }
-          }else{
-        
-        
-            res.render('event-single',{
-              isAuthenticated: req.session.isLoggedIn,
-              isAdmin : checKAdmin(req),
-              userType : getUserType(req),
-              event : event,
-              cordinators : cordintor,
-              isRegStarted : true,
-              errorMessage : checkError(req)
-            });
-        
           }
+          console.log(isApplyed)
         
   
-        }
+            for(i in event.cordinators){
+              // console.log()
+              User.findOne({email : event.cordinators[i] },(error,user) => {
+                  return new Promise(user => {})
+              }).then(user => {
+               
+          
+                cordintor.push(user) ;
+              
         
-      })
+        
+                if(cordintor.length == event.cordinators.length){
+                  
+                
+                  
+                  if(!event.isExpired){
+                
+                  
+                    if( checkEventExpiration(event)){
       
+                      Events.findOneAndUpdate({_id : req.query.id},{isExpired : true},(err,eventUpdate) => {
+                        console.log(isApplyed)
+                        res.render('event-single',{
+                          isAuthenticated: req.session.isLoggedIn,
+                          isAdmin : checKAdmin(req),
+                          userType : getUserType(req),
+                          event : eventUpdate,
+                          cordinators : cordintor,
+                          isRegStarted : true,
+                          isApplied : isApplyed,
+                          errorMessage : checkError(req)
+                        });
+                      })
+                      
+              
+                    }else{
+                      console.log(isApplyed)
+                      res.render('event-single',{
+                        isAuthenticated: req.session.isLoggedIn,
+                        isAdmin : checKAdmin(req),
+                        userType : getUserType(req),
+                        event : event,
+                        cordinators : cordintor,
+                        isApplied : isApplyed,
+                        isRegStarted : isRegStarted(event.timeCoded.start),
+                        errorMessage : checkError(req)
+                      });
+                    }
+                  }else{
+                
+                    console.log(isApplyed)
+                    res.render('event-single',{
+                      isAuthenticated: req.session.isLoggedIn,
+                      isAdmin : checKAdmin(req),
+                      userType : getUserType(req),
+                      event : event,
+                      cordinators : cordintor,
+                      isRegStarted : true,
+                      isApplied : isApplyed,
+                      errorMessage : checkError(req)
+                    });
+                
+                  }
+                
+          
+                }
+                
+              })
+              
+        
+           
+            }
+            
+  
+          
+        }
+      })
 
-   
+    }else{
+      Faculty.findById({_id : req.session.user.userId },(error,currentUser) => {
+        var isApplyed = false;
+        if(!error&&currentUser != null){
+          
+          console.log(isApplyed)
+        
+  
+            for(i in event.cordinators){
+              // console.log()
+              User.findOne({email : event.cordinators[i] },(error,user) => {
+                  return new Promise(user => {})
+              }).then(user => {
+               
+          
+                cordintor.push(user) ;
+              
+        
+        
+                if(cordintor.length == event.cordinators.length){
+                  
+                
+                  
+                  if(!event.isExpired){
+                
+                  
+                    if( checkEventExpiration(event)){
+      
+                      Events.findOneAndUpdate({_id : req.query.id},{isExpired : true},(err,eventUpdate) => {
+                        console.log(isApplyed)
+                        res.render('event-single',{
+                          isAuthenticated: req.session.isLoggedIn,
+                          isAdmin : checKAdmin(req),
+                          userType : getUserType(req),
+                          event : eventUpdate,
+                          cordinators : cordintor,
+                          isRegStarted : true,
+                          isApplied : isApplyed,
+                          errorMessage : checkError(req)
+                        });
+                      })
+                      
+              
+                    }else{
+                      console.log(isApplyed)
+                      res.render('event-single',{
+                        isAuthenticated: req.session.isLoggedIn,
+                        isAdmin : checKAdmin(req),
+                        userType : getUserType(req),
+                        event : event,
+                        cordinators : cordintor,
+                        isApplied : isApplyed,
+                        isRegStarted : isRegStarted(event.timeCoded.start),
+                        errorMessage : checkError(req)
+                      });
+                    }
+                  }else{
+                
+                    console.log(isApplyed)
+                    res.render('event-single',{
+                      isAuthenticated: req.session.isLoggedIn,
+                      isAdmin : checKAdmin(req),
+                      userType : getUserType(req),
+                      event : event,
+                      cordinators : cordintor,
+                      isRegStarted : true,
+                      isApplied : isApplyed,
+                      errorMessage : checkError(req)
+                    });
+                
+                  }
+                
+          
+                }
+                
+              })
+              
+        
+           
+            }
+            
+  
+          
+        }
+      })
     }
     
+
+
     
     
 
@@ -321,14 +434,32 @@ exports.getClubsSingle = (req,res,next) => {
     
           }else{
     
-            notInClub()
+            res.render('club-single',{
+              isAuthenticated: req.session.isLoggedIn,
+              isAdmin : checKAdmin(req),
+              userType : getUserType(req),
+              club : club,
+              head : head,
+              isApplied : false,
+              userId : userId,
+              errorMessage : checkError(req)
+            });
            
           }
 
 
         })
       }else{
-        notInClub()
+        res.render('club-single',{
+          isAuthenticated: req.session.isLoggedIn,
+          isAdmin : checKAdmin(req),
+          userType : getUserType(req),
+          club : club,
+          head : head,
+          isApplied : false,
+          userId : userId,
+          errorMessage : checkError(req)
+        });
       }
 
 
@@ -359,7 +490,7 @@ exports.getClubsSingle = (req,res,next) => {
   
 }
 
-function notInClub(){
+function notInClub(res,req){
   res.render('club-single',{
     isAuthenticated: req.session.isLoggedIn,
     isAdmin : checKAdmin(req),

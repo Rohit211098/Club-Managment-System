@@ -29,15 +29,21 @@
 .navbar-nav {
   padding-left: 50px;
   background: $primary-color;
-
+  min-height: 100px;
   @include desktop {
     padding-left: 0;
   }
 }
 
+.navbar-brand {	
+  	
+  height: 80px;	
+  width: 80px;	
+  line-height: 80px;	
+}
+
 .nav-bg {
   background-color: $secondary-color;
-  margin-top: -46px;
 }
 
 .nav-item {

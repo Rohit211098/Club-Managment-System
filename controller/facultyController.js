@@ -113,7 +113,15 @@ exports.postCreateEvent = (req,res,next) => {
                         
                         event.save().then( message => {
                             console.log(message);
-                            res.redirect('/events');
+                            Clubs.findByIdAndUpdate({_id:faculty.clubId},{ "$push": { "clubEvents": message._id} },{ "new": true, "upsert": true },function (error, club){
+                            
+
+                                if(!error){
+                                    res.redirect('/events');
+                                }
+                    
+                            });
+                            
                         }).catch( err =>{
                             console.log(err);
                             res.redirect('/#signupModal');

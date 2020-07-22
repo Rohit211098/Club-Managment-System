@@ -14,8 +14,10 @@ router.get('/apply-club',Auth.getAuth,GustController.getApplyClub);
 
 router.get('/clubs',GustController.getClubs);
 router.post('/event-registration',EventController.postRegisterEvent)
+router.get('/my-events',EventController.getMyEvents)
 router.get('/about',GustController.getAbout)
  router.get('/club-single',GustController.getClubsSingle)
+ router.get('/event-applicant',EventController.getEventApplicant)
 router.get('/contact',GustController.getContact)
 router.get('/requests',GustController.getUserRequests)
 

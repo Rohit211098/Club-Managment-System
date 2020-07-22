@@ -3,6 +3,7 @@
 
   <%- include('includes/head.ejs') %>
   <link rel="stylesheet" href="css/user-request.css"  id="bootstrap-css"/>
+  <link rel="stylesheet" href="css/event-applicants.css"  id="bootstrap-css"/>
   
 
 
@@ -16,83 +17,73 @@
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <ul class="list-inline custom-breadcrumb">
-          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Upcoming Events</a></li>
-          <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
-        </ul>
-        <p class="text-lighten">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
+      
     </div>
   </div>
 </section>
 <!-- /page title -->
-
-
-<!-- courses -->
 <section class="section">
   <div class="container">
-    <div class="row">
-
-      <% for(let event of events ){   %>
-      <!-- event -->
-      <% if(event.isExpired == false)  { %>
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card border-0 rounded-0 hover-shadow">
-          <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="/<%= event.images.smallBanner %>" alt="event thumb" style="height: 200px;">
-            <div class="card-date"><span><%= event.date.split(" ")[0] %></span><br><%= event.date.split(" ")[1] %></div>
+    <% if (users.length > 0){%>
+    <% for(let i in users) {%>
+    <div class="card border-0 rounded-0 hover-shadow mb-2 mt-2">
+     
+        <div class="card-body">
+          <div class="row">
+          <div class="col-lg-1 col-sm-1 my-auto">
+            <img src="/<%= users[i].profile.profileImage === undefined ?   'images/defaultUser.jpg' : users[i].profile.profileImage %>" class="rounded-circle" style="width: 50px; height: 50px;" alt="Cinque Terre">
           </div>
-          <div class="card-body">
-            <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i><%= event.location %></p>
-            <a href="/event-single?id=<%= event._id %>">
-              <h4 class="card-title"><%= event.heading %></h4>
-            </a>
+          <div class="col-lg-10 col-sm-10">
+            <div class="row h-100">
+              <div class="col-lg-4  col-sm-4 my-auto">
+                <h4><%= users[i].profile.firstName%> <%= users[i].profile.lastName%></h4>
+              </div>
+              <div class="col-lg-6  col-sm-6 my-auto">
+                <p>
+                  <%= users[i].profile.college.college_name%>
+                </p>
+              </div>
+              <div class="col-lg-2  col-sm-2 my-auto">
+                <p>
+                  Enrolment id <%= (parseInt(i)+1)  %>
+                </p>
+              </div>
+            </div>
+        
           </div>
         </div>
+        
       </div>
-      <% }  %>
-      <% }  %>
-      
-     
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="separator ">Archived Events</div>
-    <div class="row">
-
-      <% for(let event of events ){   %>
-        <% if(event.isExpired == true){   %>
-      <!-- event -->
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card border-0 rounded-0 hover-shadow">
-          <div class="card-img position-relative">
-            <img class="card-img-top rounded-0" src="/<%= event.images.smallBanner %>" alt="event thumb"  style="height: 200px;">
-            <div class="card-date"><span><%= event.date.split(" ")[0] %></span><br><%= event.date.split(" ")[1] %></div>
+    <% }%>
+    <% }else {%>
+      <div class="card border-0 rounded-0 hover-shadow mb-2 mt-2">
+     
+        <div class="card-body">
+          <div class="row">
+          <div class="col-lg-12 col-sm-12 my-auto">
+            <h1 class="no-registration">No Registrations</h1>
           </div>
-          <div class="card-body">
-            <!-- location -->
-            <p><i class="ti-location-pin text-primary mr-2"></i><%= event.location %></p>
-            <a href="/event-single?id=<%= event._id %>">
-              <h4 class="card-title"><%= event.heading %></h4>
-            </a>
-          </div>
+          
         </div>
+        
       </div>
-      <% }  %>
-      <% }  %>
-      
-     
     </div>
-  </div>
-</section>
-<!-- /courses -->
 
-<!-- footer -->
+
+      <% }%>
+
+
+    
+  </div>
+</div>
+  </div>
+     
+      
+</section>
+                
+
+<!-- footer --> 
 <footer>
   <!-- newsletter -->
   <div class="newsletter">
