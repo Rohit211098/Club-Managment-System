@@ -1,9 +1,11 @@
 const Faculty = require('../models/faculty');
 const User = require('../models/user');
 const Event = require('../models/event');
-const Clubs = require('../models/clubs')
+const Clubs = require('../models/clubs');
+const News = require('../models/news');
 const bcryppt = require('bcryptjs');
 const constants = require('../Utils/constants');
+const news = require('../models/news');
 
 exports.getFacultyloginDetails = (req,res,next) =>{
 
@@ -58,8 +60,8 @@ exports.postCreateEvent = (req,res,next) => {
     const startCode = convertDateTime(req.body.eventStartDate,req.body.eventStartTime)
     const location  = req.body.eventLocation;
     const fees = req.body.eventRegistrationFees == undefined ? 0  : req.body.eventRegistrationFees ;
-    const smallBanner =     req.files['smallBanner'] == undefined ? 0  : req.files['smallBanner'][0].path;
-    const bigBanner =    req.files['bigBanner'] == undefined ? 0  : req.files['bigBanner'][0].path;
+    const smallBanner = req.files['smallBanner'] == undefined ? 0  : req.files['smallBanner'][0].path;
+    const bigBanner = req.files['bigBanner'] == undefined ? 0  : req.files['bigBanner'][0].path;
     const email = req.session.user.email;
     const currentDate = new Date().toDateString();
     const id = req.session.user._id;
@@ -114,8 +116,7 @@ exports.postCreateEvent = (req,res,next) => {
                         event.save().then( message => {
                             console.log(message);
                             Clubs.findByIdAndUpdate({_id:faculty.clubId},{ "$push": { "clubEvents": message._id} },{ "new": true, "upsert": true },function (error, club){
-                            
-
+                        
                                 if(!error){
                                     res.redirect('/events');
                                 }
@@ -184,6 +185,133 @@ function getDateInFormat(date){
 
 }
 
+exports.getNewsPost = (req,res,next) =>{
+
+    Clubs.findOne({clubHead : req.session.user.userId},(error , doc) => {
+        if(!error){
+            Event.find({_id :{$in : doc.clubEvents}},( error ,event) => {
+                if(!error){
+                    res.render('news-post',{
+                        isAuthenticated: req.session.isLoggedIn,
+                        isAdmin : checKAdmin(req),
+                        userType : getUserType(req),
+                        errorMessage : checkError(req),
+                        events : event
+                      });
+                }else{
+                    console.log(error)
+                }
+            })
+        }else{
+            console.log(error)
+        }
+    })
+
+}
+
+exports.postNewsPost = (req,res,next) => {
+
+    let tag = req.query.tag;
+    let heading = req.body.heading;
+    let shortDescription = req.body.shortDescription;
+    let fullDescription = req.body.fullDescription;
+    let eventId = req.body.event;
+    let newsImage = req.files['newsImages'] == undefined ? 0  : req.files['newsImages'][0].path;
+    let date = getDateInFormat(new Date().toLocaleDateString());
+    let time = new Date().toTimeString();
+
+
+    Faculty.findOne({_id : req.session.user.userId},(error,faculty) =>{
+        console.log("inside")
+        if(!error){
+            console.log("inside")
+            Clubs.findOne({_id : faculty.clubId},(error, club ) => {
+                if(!error){
+                    console.log("inside")
+                    var news;
+                    if(tag == "General"){
+                        console.log("inside")
+                        news = new News({
+                            Type : tag,
+                            Heading : heading,
+                            description : {
+                                short : shortDescription,
+                                full : fullDescription
+                            },
+                            images : newsImage,
+                            PublishedBy : faculty.name.first + " " + faculty.name.last,
+                            createdBy : {
+                                email : faculty.email,
+                                id : faculty._id,
+                                date : date,
+                                time : time
+                            },
+                        })  
+                    }else if(tag == "ClubRelated"){
+                        news = new News({
+                            Type : tag,
+                            Heading : heading,
+                            description : {
+                                short : shortDescription,
+                                full : fullDescription
+                            },
+                            EventInfo : {
+                                EventId : "",
+                                ClubId : club._id
+                            },
+                            images : newsImage,
+                            PublishedBy : faculty.name.first + " " + faculty.name.last,
+                            createdBy : {
+                                email : faculty.email,
+                                id : faculty._id,
+                                date : date,
+                                time : time
+                            },
+                        })  
+
+                    }else if(tag == "EventRelated"){
+                        news = new News({
+                            Type : tag,
+                            Heading : heading,
+                            description : {
+                                short : shortDescription,
+                                full : fullDescription
+                            },
+                            EventInfo : {
+                                EventId : eventId,
+                                ClubId : club._id
+                            },
+                            images : newsImage,
+                            PublishedBy : faculty.name.first + " " + faculty.name.last,
+                            createdBy : {
+                                email : faculty.email,
+                                id : faculty._id,
+                                date : date,
+                                time : time
+                            },
+                        })  
+                    }
+
+                    news.save().then(message => {
+                        console.log(message+"sucss")
+                        return res.send("success");
+                    }).catch(error => {
+                        console.log(error+"error")
+                        return res.send(error);
+                    })
+                }
+               
+            })
+        }
+    })
+
+    
+   
+ 
+    
+
+} 
+
 exports.postAccept = (req,res,next) =>{
 
     let clubId = req.query.clubId;
@@ -208,8 +336,57 @@ exports.postAccept = (req,res,next) =>{
           });
         }
       })
-
-    
-
-
 }
+
+
+function checkError(req){
+    let message = req.flash('error');
+    if(message.length > 0){
+      message = message[0];
+    }else{
+      message = null;
+    }
+    return message;
+  }
+  
+
+
+
+function checKAdmin(req){
+    var isAdmin = false;
+  
+  
+    try{
+      if (req.session.isLoggedIn) {
+        if(req.session.user.isAdmin){
+          isAdmin = true;
+        }
+      }
+    }finally{
+  
+    }
+   
+    
+  
+    return isAdmin;
+  
+  
+  } 
+  
+  function getUserType(req){
+    if(req.session.isLoggedIn){
+      return req.session.user.userType
+    }
+    return 0
+  }
+
+
+  function checkEmpty(value){
+
+    if(value == '' ){
+      return true
+    }
+  
+    return false
+  }
+  

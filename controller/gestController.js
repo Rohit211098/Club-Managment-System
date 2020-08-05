@@ -2,6 +2,7 @@ const Clubs = require('../models/clubs')
 const Events = require('../models/event')
 const User = require('../models/user')
 const Faculty = require('../models/faculty')
+const News = require('../models/news')
 
 function checKAdmin(req){
   var isAdmin = false;
@@ -69,9 +70,6 @@ exports.getClubs = (req,res,next) => {
 
 exports.getIndex = (req,res,next) => {
 
-
-  
-
   Clubs.find({}).limit(3).exec( (err, clubs) => {
 
     if (!err) {
@@ -114,19 +112,49 @@ exports.getIndex = (req,res,next) => {
 }
 
 
-exports.getNotice = (req,res,next) => {
-  res.render('notice',{
-    isAuthenticated: req.session.isLoggedIn,
-    isAdmin : checKAdmin(req),
-    userType : getUserType(req)
-  });
+exports.getNews = (req,res,next) => {
+
+  News.find({},(error, news) => {
+
+    if(!error){
+      res.render('notice',{
+        isAuthenticated: req.session.isLoggedIn,
+        isAdmin : checKAdmin(req),
+        userType : getUserType(req),
+        news : news ,
+      });
+    }
+  })
+
+  
 }
 
-exports.getNoticeSingle = (req,res,next) => {
+function getDateInFormat(date){
+   
+  if(date == ""){
+      return;
+  }
+  const day = date.split('/')[0];
+  var monthNumber  = date.split('/')[1] ;
+  console.log(monthNumber)
+  if(monthNumber.charAt(0) == '0'){
+      monthNumber = monthNumber.substring(1);
+  }
+
+  const year  = date.split('/')[2];
+  const month = constants.MONTHS[parseInt(monthNumber)-1];
+
+  return day + " " + month + " " +year;
+
+}
+
+
+exports.getNewsSingle = (req,res,next) => {
   res.render('notice-single',{
     isAuthenticated: req.session.isLoggedIn,
     isAdmin : checKAdmin(req),
-    userType : getUserType(req)
+    userType : getUserType(req),
+    errorMessage : checkError(req)
   });
 }
 
@@ -323,18 +351,7 @@ exports.getEventSingle = (req,res,next) => {
         }
       })
     }
-    
 
-
-    
-    
-
-   
-
-   
-    
-    
-    
   }).catch(error => {
     console.log(error)
     res.redirect('/events');
@@ -344,12 +361,6 @@ exports.getEventSingle = (req,res,next) => {
 
 
 exports.getEvents = (req,res,next) => {
-
-
-  
-
-
-
 
   Events.find({},(err,events) => {
     return new Promise( events => {})
@@ -378,8 +389,6 @@ exports.getContact = (req,res,next) => {
 }
 
 exports.getClubsSingle = (req,res,next) => {
-
-  
 
   Clubs.findOne({_id : req.query.id}).then(club => {
 

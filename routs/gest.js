@@ -23,8 +23,8 @@ router.get('/requests',GustController.getUserRequests)
 
 router.get('/events',GustController.getEvents)
  router.get('/event-single',Auth.getAuth,GustController.getEventSingle)
-router.get('/notice-single',GustController.getNoticeSingle)
-router.get('/notice',GustController.getNotice)
+router.get('/newsDetails',GustController.getNewsSingle)
+router.get('/news',GustController.getNews)
 router.post('/signup-faculty',auth.getSignUpFacultyDetails)
 
 router.get('/index',GustController.getIndex)

@@ -46,7 +46,8 @@ var fields = [
     { name: 'smallBanner', maxCount: 1 },
     { name: 'clubLogo', maxCount: 1 },
     { name: 'clubBanner', maxCount: 1 },
-    { name: 'bigBanner', maxCount: 1 }
+    { name: 'bigBanner', maxCount: 1 },
+    { name: 'newsImages', maxCount: 1 }
   ]
 
 

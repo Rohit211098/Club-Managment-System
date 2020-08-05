@@ -24,10 +24,10 @@
               <li class="nav-item @@events">
                 <a class="nav-link" href="events">EVENTS</a>
               </li>
-              <li class="nav-item @@events">
+              <li class="nav-item @@createEvents">
                 <a class="nav-link" href="#createEvent" data-toggle="modal" data-target="#createEvent">Create Events</a>
               </li>
-              
+
               <% if (isAuthenticated) { %>
                 <li class="nav-item @@events">
                   <a class="nav-link" href="profile">PROFILE</a>
@@ -40,6 +40,7 @@
                   Pages
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="news-post">News Post</a>
                   <a class="dropdown-item" href="teacher.html">Teacher</a>
                   <a class="dropdown-item" href="teacher-single.html">Teacher Single</a>
                   <a class="dropdown-item" href="notice.html">Notice</a>
