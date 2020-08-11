@@ -50,6 +50,38 @@ exports.getFacultyloginDetails = (req,res,next) =>{
   
 }
 
+exports.postRemoveClubMember = (req, res, next ) => {
+    const clubId = req.query.clubId;
+    const userId = req.query.userId;
+
+    Clubs.updateOne({_id : clubId} , { $pull : {clubMembers : userId}},(error, clubs) => {
+        if(!error){
+            User.updateOne({_id : userId} , { $pull : {clubsEnrolled : clubId}},(error, user) => {
+                if(!error){
+                    res.redirect('/requests')
+                }
+            })
+        }
+    })
+  
+}
+
+exports.postRejectUserRequest = (req, res, next ) => {
+    const clubId = req.query.clubId;
+    const userId = req.query.userId;
+
+    Clubs.updateOne({_id : clubId} , { $pull : {clubMembersRequest : userId}},(error, clubs) => {
+        if(!error){
+            User.updateOne({_id : userId} , { $pull : {clubApplied : clubId}},(error, user) => {
+                if(!error){
+                    res.redirect('/requests')
+                }
+            })
+        }
+    })
+  
+}
+
 exports.postCreateEvent = (req,res,next) => {
 
     const title = req.body.eventName; 

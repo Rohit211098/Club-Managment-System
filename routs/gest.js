@@ -22,8 +22,8 @@ router.get('/contact',GustController.getContact)
 router.get('/requests',GustController.getUserRequests)
 
 router.get('/events',GustController.getEvents)
- router.get('/event-single',Auth.getAuth,GustController.getEventSingle)
-router.get('/newsDetails',GustController.getNewsSingle)
+router.get('/event-single',Auth.getAuth,GustController.getEventSingle)
+router.get('/newsDetails',GustController.getNewsDetails)
 router.get('/news',GustController.getNews)
 router.post('/signup-faculty',auth.getSignUpFacultyDetails)
 

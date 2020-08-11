@@ -37,16 +37,10 @@
         <h1> <%= requests[i].profile.firstName %></h1>
         <p class="title"><%= requests[i].email %></p>
         <p>Harvard University</p>
-        <!-- <div style="margin: 24px 0;">
-          <a href="#"><i class="fa fa-dribbble"></i></a> 
-          <a href="#"><i class="fa fa-twitter"></i></a>  
-          <a href="#"><i class="fa fa-linkedin"></i></a>  
-          <a href="#"><i class="fa fa-facebook"></i></a> 
-        </div> -->
         <form action="/accept?clubId=<%= clubId %>&userId=<%= requests[i]._id %>" method="post">
           <button type="submit"  class="btn btn-accept" style="width: 100%;">Accept</button>
         </form>
-        <form action="" method="post">
+        <form action="/reject?clubId=<%= clubId %>&userId=<%= requests[i]._id %>" method="post">
           <button type="submit" class="btn btn-reject "style="width: 100%;">Reject</button>
         </form>
        
@@ -82,15 +76,8 @@
         <h1> <%= members[i].profile.firstName %></h1>
         <p class="title"><%= members[i].email %></p>
         <p>Harvard University</p>
-        <!-- <div style="margin: 24px 0;">
-          <a href="#"><i class="fa fa-dribbble"></i></a> 
-          <a href="#"><i class="fa fa-twitter"></i></a>  
-          <a href="#"><i class="fa fa-linkedin"></i></a>  
-          <a href="#"><i class="fa fa-facebook"></i></a> 
-        </div> -->
-       
-        <form action="" method="post">
-          <button type="submit" class="btn btn-reject "style="width: 100%;">Reject</button>
+        <form action="/remove?clubId=<%= clubId %>&userId=<%= members[i]._id %>" method="post">
+          <button type="submit" class="btn btn-reject "style="width: 100%;">Remove</button>
         </form>
       </div>
 

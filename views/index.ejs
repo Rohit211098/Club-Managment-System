@@ -16,45 +16,19 @@ font-awesome.min.css">
 <section class="hero-section overlay bg-cover" data-background="images/banner/banner-1.jpg">
   <div class="container">
     <div class="hero-slider">
+      <% for(let i =0 ; i < news.length ; i++) { %>
       <!-- slider item -->
       <div class="hero-slider-item">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Your bright future is our mission</h1>
-            <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor
-              incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
-            <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".7">Apply now</a>
+            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1"><%= news[i].Heading %></h1>
+            <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4"><%= news[i].description.short %></p>
+            <a href="/newsDetails?id=<%= news[i]._id %>" class="btn btn-primary" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".7">Read More</a>
           </div>
         </div>
       </div>
-      <!-- slider item -->
-      <div class="hero-slider-item">
-        <div class="row">
-          <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">Your bright future is our mission</h1>
-            <p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor
-              incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
-            <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".7">Apply now</a>
-          </div>
-        </div>
-      </div>
-      <!-- slider item -->
-      <div class="hero-slider-item">
-        <div class="row">
-          <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutDown" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">Your bright future is our mission</h1>
-            <p class="text-muted mb-4" data-animation-out="fadeOutDown" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor
-              incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
-            <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutDown" data-delay-out="5" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".7">Apply now</a>
-          </div>
-        </div>
-      </div>
+      <%}%>
+
     </div>
   </div>
 </section>
@@ -69,30 +43,33 @@ font-awesome.min.css">
       </div>
       <div class="col-xl-8 col-lg-7">
         <div class="row feature-blocks bg-gray justify-content-between">
+        
           <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
-            <i class="ti-book mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
-            <h3 class="mb-xl-4 mb-lg-3 mb-4">Scholorship News</h3>
+           <a href="/news">
+             <figure ><img src="/images/news.png" style="width: 100px; height: auto;" ></figure>
+             <h3 class="mb-xl-4 mb-lg-3 mb-4">News</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
               et dolore magna aliqua. Ut enim ad</p>
+           </a>
           </div>
+
           <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
-            <i class="ti-blackboard mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
-            <h3 class="mb-xl-4 mb-lg-3 mb-4">Our Notice Board</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua. Ut enim ad</p>
-          </div>
-          <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
-            <i class="ti-agenda mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
-            <h3 class="mb-xl-4 mb-lg-3 mb-4">Our Achievements</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua. Ut enim ad</p>
-          </div>
-          <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
-            <i class="ti-write mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
-            <h3 class="mb-xl-4 mb-lg-3 mb-4">Admission Now</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua. Ut enim ad</p>
-          </div>
+            <a href="/clubs">
+              <figure ><img src="/images/rocket.gif" style="width: 100px; height: auto;" ></figure>
+              <h3 class="mb-xl-4 mb-lg-3 mb-4">Clubs</h3>
+             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+               et dolore magna aliqua. Ut enim ad</p>
+            </a>
+           </div>
+
+           <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
+            <a href="/events">
+              <figure ><img src="/images/events.png" style="width: 100px; height: auto;" ></figure>
+              <h3 class="mb-xl-4 mb-lg-3 mb-4">Events</h3>
+             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+               et dolore magna aliqua. Ut enim ad</p>
+            </a>
+           </div>
         </div>
       </div>
     </div>

@@ -12,21 +12,21 @@
   
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto text-center">
-              <li class="nav-item active">
+              <li class="nav-item <%= path === '/' ? 'active' : '' %>">
                 <a class="nav-link" href="index">Home</a>
               </li>
-              <li class="nav-item @@about">
+              <li class="nav-item <%= path === '/about' ? 'active' : '' %>">
                 <a class="nav-link" href="about">About</a>
               </li>
-              <li class="nav-item @@courses">
+              <li class="nav-item <%= path === '/clubs' ? 'active' : '' %>">
                 <a class="nav-link" href="clubs">CLUBS</a>
               </li>
-              <li class="nav-item @@events">
+              <li class="nav-item <%= path === '/events' ? 'active' : '' %>">
                 <a class="nav-link" href="events">EVENTS</a>
               </li>
               
               <% if (isAuthenticated) { %>
-                <li class="nav-item @@events">
+                <li class="nav-item <%= path === '/profile' ? 'active' : '' %>">
                   <a class="nav-link" href="profile">PROFILE</a>
                 </li>
               <% } %>

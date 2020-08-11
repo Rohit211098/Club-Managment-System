@@ -46,17 +46,18 @@ exports.getClubs = (req,res,next) => {
     if(checKAdmin(req)){
      
       res.render('admin-clubs',{
-        isAuthenticated: req.session.isLoggedIn,
-       clubs : clubs,
-       errorMessage : checkError(req)
-        
+      isAuthenticated: req.session.isLoggedIn,
+      clubs : clubs,
+      errorMessage : checkError(req),
+      path : "/clubs"
       });
   
     }else{
       res.render('clubs',{
       isAuthenticated: req.session.isLoggedIn, 
       clubs : clubs ,
-      errorMessage : checkError(req) 
+      errorMessage : checkError(req) ,
+      path : "/clubs"
     });
    }
 
@@ -85,20 +86,24 @@ exports.getIndex = (req,res,next) => {
           Faculty.find().skip(random).limit(3).exec(
             function (error, faculty) {
 
-              
-              if (!error) {
-                res.render('index',{
-                  isAuthenticated: req.session.isLoggedIn,
-                  isAdmin : checKAdmin(req),
-                  clubs : clubs,
-                  events : events,
-                  facultys : faculty,
-                  userType : getUserType(req),
-                  errorMessage : checkError(req)
-                
-                });
-              }
-              
+
+              News.find({}).limit(3).exec((error , news) => {
+                if (!error) {
+                  res.render('index',{
+                    isAuthenticated: req.session.isLoggedIn,
+                    isAdmin : checKAdmin(req),
+                    clubs : clubs,
+                    events : events,
+                    facultys : faculty,
+                    news : news,
+                    userType : getUserType(req),
+                    errorMessage : checkError(req),
+                    path : "/"
+                  
+                  });
+                }
+              })
+
             })
         })
 
@@ -117,11 +122,12 @@ exports.getNews = (req,res,next) => {
   News.find({},(error, news) => {
 
     if(!error){
-      res.render('notice',{
+      res.render('news',{
         isAuthenticated: req.session.isLoggedIn,
         isAdmin : checKAdmin(req),
         userType : getUserType(req),
         news : news ,
+        path : "/news"
       });
     }
   })
@@ -149,13 +155,25 @@ function getDateInFormat(date){
 }
 
 
-exports.getNewsSingle = (req,res,next) => {
-  res.render('notice-single',{
-    isAuthenticated: req.session.isLoggedIn,
-    isAdmin : checKAdmin(req),
-    userType : getUserType(req),
-    errorMessage : checkError(req)
-  });
+exports.getNewsDetails = (req,res,next) => {
+
+  var newsId = req.query.id;
+
+  News.findOne({_id : newsId},(error , news) => {
+    if(!error){
+      res.render('news-single',{
+        isAuthenticated: req.session.isLoggedIn,
+        isAdmin : checKAdmin(req),
+        userType : getUserType(req),
+        errorMessage : checkError(req),
+        news : news,
+        path : "/newsDetails"
+      });
+    }
+   
+  })
+
+  
 }
 
 exports.getEventSingle = (req,res,next) => {
@@ -217,7 +235,8 @@ exports.getEventSingle = (req,res,next) => {
                           cordinators : cordintor,
                           isRegStarted : true,
                           isApplied : isApplyed,
-                          errorMessage : checkError(req)
+                          errorMessage : checkError(req),
+                          path : "/event-single"
                         });
                       })
                       
@@ -232,7 +251,8 @@ exports.getEventSingle = (req,res,next) => {
                         cordinators : cordintor,
                         isApplied : isApplyed,
                         isRegStarted : isRegStarted(event.timeCoded.start),
-                        errorMessage : checkError(req)
+                        errorMessage : checkError(req),
+                        path : "/event-single"
                       });
                     }
                   }else{
@@ -246,7 +266,8 @@ exports.getEventSingle = (req,res,next) => {
                       cordinators : cordintor,
                       isRegStarted : true,
                       isApplied : isApplyed,
-                      errorMessage : checkError(req)
+                      errorMessage : checkError(req),
+                      path : "/event-single"
                     });
                 
                   }
@@ -303,7 +324,8 @@ exports.getEventSingle = (req,res,next) => {
                           cordinators : cordintor,
                           isRegStarted : true,
                           isApplied : isApplyed,
-                          errorMessage : checkError(req)
+                          errorMessage : checkError(req),
+                          path : "/event-single"
                         });
                       })
                       
@@ -318,7 +340,8 @@ exports.getEventSingle = (req,res,next) => {
                         cordinators : cordintor,
                         isApplied : isApplyed,
                         isRegStarted : isRegStarted(event.timeCoded.start),
-                        errorMessage : checkError(req)
+                        errorMessage : checkError(req),
+                        path : "/event-single"
                       });
                     }
                   }else{
@@ -332,7 +355,8 @@ exports.getEventSingle = (req,res,next) => {
                       cordinators : cordintor,
                       isRegStarted : true,
                       isApplied : isApplyed,
-                      errorMessage : checkError(req)
+                      errorMessage : checkError(req),
+                      path : "/event-single"
                     });
                 
                   }
@@ -372,7 +396,8 @@ exports.getEvents = (req,res,next) => {
       isAdmin : checKAdmin(req),
       userType : getUserType(req),
       events : events,
-      errorMessage : checkError(req)
+      errorMessage : checkError(req),
+      path : "/events"
     });
 
   })
@@ -397,7 +422,7 @@ exports.getClubsSingle = (req,res,next) => {
       var userId =null;
      
 
-      if(req.session.isLoggedIn){
+      if(req.session.isLoggedIn && req.session.user.userType == 0){
         userId =  req.session.user.userId;
         User.findById({_id : req.session.user.userId}).then(user => {
 
@@ -421,15 +446,16 @@ exports.getClubsSingle = (req,res,next) => {
             
               if (element == req.query.id){
                 isEnrolled = true;
-               
+               console.log("test === "+element +"  ------   "+req.query.id)
               }
             });
 
           }
 
+          console.log(isEnrolled)
+
           if(isEnrolled){
 
-           
             return  res.render('club-single',{
               isAuthenticated: req.session.isLoggedIn,
               isAdmin : checKAdmin(req),
@@ -438,7 +464,8 @@ exports.getClubsSingle = (req,res,next) => {
               head : head,
               isApplied : true,
               userId : userId,
-              errorMessage : checkError(req)
+              errorMessage : checkError(req),
+              path : "/club-single"
             });
     
           }else{
@@ -451,7 +478,8 @@ exports.getClubsSingle = (req,res,next) => {
               head : head,
               isApplied : false,
               userId : userId,
-              errorMessage : checkError(req)
+              errorMessage : checkError(req),
+              path : "/club-single"
             });
            
           }
@@ -459,6 +487,7 @@ exports.getClubsSingle = (req,res,next) => {
 
         })
       }else{
+        console.log("free")
         res.render('club-single',{
           isAuthenticated: req.session.isLoggedIn,
           isAdmin : checKAdmin(req),
@@ -467,22 +496,11 @@ exports.getClubsSingle = (req,res,next) => {
           head : head,
           isApplied : false,
           userId : userId,
-          errorMessage : checkError(req)
+          errorMessage : checkError(req),
+          path : "/club-single"
         });
       }
 
-
-     
-        
-      
-
-
-     
-      
-     
-
-    
-  
 
     }).catch(error => {
 
@@ -518,7 +536,8 @@ exports.getAbout = (req,res,next) => {
     isAuthenticated: req.session.isLoggedIn,
     isAdmin : checKAdmin(req),
     userType : getUserType(req),
-    errorMessage : checkError(req)
+    errorMessage : checkError(req),
+    path : "/about"
   });
 }
 
@@ -540,7 +559,8 @@ exports.getProfile = (req,res,next) => {
             userType : getUserType(req),
             user : user,
             club : club,
-            errorMessage : checkError(req)
+            errorMessage : checkError(req),
+            path : "/profile"
             
           });
   
@@ -552,7 +572,8 @@ exports.getProfile = (req,res,next) => {
           isAdmin : checKAdmin(req),
           userType : getUserType(req),
           user : user,
-          errorMessage : checkError(req)
+          errorMessage : checkError(req),
+          path : "/profile"
     
           
         });
@@ -573,7 +594,8 @@ exports.getProfile = (req,res,next) => {
         isAuthenticated: req.session.isLoggedIn,
         isAdmin : checKAdmin(req),
         userType : getUserType(req),
-        user : user
+        user : user,
+        path : "/profile"
         
       });
   
@@ -759,22 +781,33 @@ exports.getUserRequests = (req,res,next) =>{
         '_id': { $in: club.clubMembersRequest}
     }, function(err, userRequests){
 
-      User.find({
-        '_id': { $in: club.clubMembers}
-    }, function(err, userMembers){
+      if(!err){
+        User.find({
+          '_id': { $in: club.clubMembers}
+        }, function(err, userMembers){
+  
+        res.render('user-requests.ejs',{
+          isAuthenticated: req.session.isLoggedIn, 
+          errorMessage : checkError(req) ,
+          requests : userRequests,
+          members : userMembers,
+          clubId : faculty.clubId,
+          path : "/requests"
+          
+        });
 
-      res.render('user-requests.ejs',{
-        isAuthenticated: req.session.isLoggedIn, 
-        errorMessage : checkError(req) ,
-        requests : userRequests,
-        members : userMembers,
-        clubId : faculty.clubId,
-        
       });
 
       
+      }else{
+        console.log(err)
+      }
+
+      
+
+      
          
-    });
+    
          
     });
 

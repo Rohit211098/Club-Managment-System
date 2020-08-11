@@ -128,7 +128,7 @@ exports.getEventApplicant = (req,res,next) => {
                         errorMessage : checkError(req)
                       });
                 }
-            });
+            });   
           
         }
     })

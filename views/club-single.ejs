@@ -73,9 +73,9 @@
           </li>
         </ul> -->
       </div>
-      <% if(!isApplied) {  %>
+      <% if(!isApplied && userType == 0) {  %>
       <div class="col-xl-3 text-sm-right text-left order-sm-2 order-3 order-xl-3 col-sm-6 mb-4 mb-xl-0">
-        <a href="/apply-club?id=<%= club._id %>&sId=<%= userId   %>" class="btn btn-primary">Apply now</a>
+        <a href="/apply-club?id=<%= club._id %>&sId=<%= userId%>" class="btn btn-primary">Apply now</a>
       </div>
       <% }  %>
       <!-- border -->
@@ -87,73 +87,19 @@
     <div class="row">
       <div class="col-12 mb-4">
         <h3>About Club</h3>
-        <p class="text-wrap-space" ><%= club.clubDescription %></p>
+        <p class="text-wrap-space"><%= club.clubDescription %></p>
         
       </div>
       
     </div>
       
-<!--       
-      <div class="col-12 mb-4">
-        <h3 class="mb-3">Requirements</h3>
-        <div class="col-12 px-0">
-          <div class="row">
-            <div class="col-md-6">
-              <ul class="list-styled">
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-              </ul>
-            </div>
-            <div class="col-md-6">
-              <ul class="list-styled">
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 mb-4">
-        <h3 class="mb-3">How to Apply</h3>
-        <ul class="list-styled">
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-            dolor. Lorem, ipsum.</li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-            dolor. Lorem, ipsum.</li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-            dolor. Lorem, ipsum.</li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-            dolor. Lorem, ipsum.</li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-            dolor. Lorem, ipsum.</li>
-        </ul>
-      </div>
-      <div class="col-12 mb-5">
-        <h3>Fees and Funding</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-          anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-          laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-          dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-          consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-          ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-          labore et dolore magnam aliquam quaerat voluptatem.</p>
-          
-      </div> -->
-
       <!-- teacher -->
       <div class="border-bottom border-primary mb-4"></div>
       <div class="col-12">
         <h5 class="mb-3">Club Head</h5>
         <div class="d-flex justify-content-between align-items-center flex-wrap">
           <div class="media mb-2 mb-sm-0">
-            <img class="mr-4 img-fluid" src="/<%= head.profile.profileImage %>" alt="Teacher" width="150px">
+            <img class="mr-4 img-fluid" src="/<%= (head.profile.profileImage === undefined) ? 'images/teacher.jpg' : 'head.profile.profileImage'%>" alt="Teacher" width="150px">
             <div class="media-body">
               <h4 class="mt-0"><%= head.name.first+" "+head.name.first %></h4>
               <%= head.profile.college.position == undefined ? 'Faculty' : head.profile.college.position  %>
@@ -179,37 +125,6 @@
 </section>
 <!-- /section -->
 
-<!-- related course -->
-<!-- <section class="section pt-0">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h2 class="section-title">Related Course</h2>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      
-      <div class="col-lg-4 col-sm-6 mb-5">
-        <div class="card p-0 border-primary rounded-0 hover-shadow">
-          <img class="card-img-top rounded-0" src="images/courses/course-1.jpg" alt="course thumb">
-          <div class="card-body">
-            <ul class="list-inline mb-2">
-              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-              <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-            </ul>
-            <a href="course-single.html">
-              <h4 class="card-title">Photography</h4>
-            </a>
-            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna.</p>
-            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-<!-- /related course -->
 
 <!-- footer -->
 <footer>
@@ -234,14 +149,6 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
-          <!-- logo -->
-          <!-- <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="images/logo.png" alt="logo"></a>
-          <ul class="list-unstyled">
-            <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
-            <li class="mb-2">+1 (2) 345 6789</li>
-            <li class="mb-2">+1 (2) 345 6789</li>
-            <li class="mb-2">contact@yourdomain.com</li>
-          </ul> -->
         </div>
       </div>
     </div>
